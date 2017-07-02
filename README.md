@@ -1,4 +1,4 @@
-# ChainerOD
+# clib
 Train and Detect scripts
 
 ## Future Plan
