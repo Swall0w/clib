@@ -5,5 +5,9 @@ Train and Detect scripts
 
 * Add Yolo model
 * Add ssd model
+* Add dssd model
+
+* pix2pix model
+* Cycle Gan model
 
 with train,detect scripts
