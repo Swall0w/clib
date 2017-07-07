@@ -1,6 +1,8 @@
 # clib
 Train and Detect scripts
 
+    pip install git+https://github.com/Swall0w/clib
+
 ## Future Plan
 
 ### Model
