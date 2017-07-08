@@ -2,7 +2,7 @@ import numpy as np
 import chainer
 from chainer import training, Variable
 from chainer.dataset import iterator as itr_module
-from yolo.common import format_image_size
+from clib.converts import format_image_size
 import six
 
 def darknet_converter(batch, device=None):
