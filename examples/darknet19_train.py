@@ -1,13 +1,12 @@
 import argparse
 import numpy as np
 import chainer
-from chainer import optimizers, training, iterators, Variable
+from chainer import optimizers, training, iterators
 from chainer.training import extensions
-from chainer.dataset import iterator as itr_module
 
-from yolo.model.darknet import Darknet19, Darknet19Predictor
-from yolo.trainer.dataset import PreprocessedDataset
-from yolo.trainer.update import darknet_converter
+from clib.links.model.yolo.darknet import Darknet19, Darknet19Predictor
+from clib.training.dataset.yolo import PreprocessedDataset
+from clib.training.updater.yolo import darknet_converter
 
 def arg():
     parser = argparse.ArgumentParser()
