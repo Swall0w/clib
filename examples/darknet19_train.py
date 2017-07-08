@@ -5,7 +5,7 @@ from chainer import optimizers, training, iterators
 from chainer.training import extensions
 
 from clib.links.model.yolo.darknet import Darknet19, Darknet19Predictor
-from clib.training.dataset.yolo import PreprocessedDataset
+from clib.training.dataset.yolo import YoloPreprocessedDataset
 from clib.training.updater.yolo import darknet_converter
 
 def arg():
@@ -42,7 +42,7 @@ def main():
     optimizer.add_hook(chainer.optimizer.WeightDecay(args.weight_decay))
 
     print('resolution: ',args.resize)
-    train = PreprocessedDataset(resize=args.resize)
+    train = YoloPreprocessedDataset(resize=args.resize)
     train_itr = iterators.SerialIterator(dataset=train,batch_size=args.batch)
     updater = training.StandardUpdater(train_itr, optimizer,converter=darknet_converter,device=args.gpu)
     trainer = training.Trainer(updater,(args.epoch,'epoch'),out=args.output)
