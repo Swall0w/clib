@@ -2,7 +2,7 @@ import numpy as np
 from chainer import Link, Chain 
 import chainer.links as L
 import chainer.functions as F
-from clib.functions as CF 
+import  clib.functions as CF 
 from chainer import reporter
 
 class Darknet19(Chain):
