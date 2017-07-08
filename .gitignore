@@ -6,3 +6,4 @@
 *.so
 tmp
 *data
+*result
