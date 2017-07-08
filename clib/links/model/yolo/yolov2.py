@@ -1,11 +1,10 @@
 import numpy as np
-#from chainer import cuda, Function, gradient_check, Variable, optimizers, serializers, utils
-from chainer import cuda, Function, Variable, optimizers, serializers, utils
-from chainer import Link, Chain, ChainList
+from chainer import Variable, Chain
 import chainer.links as L
 import chainer.functions as F
-from yolo.common.utils import *
 from chainer import reporter
+
+from clib.utils import Box, multi_box_iou, box_iou
 
 class YOLOv2(Chain):
     """
@@ -83,7 +82,6 @@ class YOLOv2(Chain):
             conv22 = L.Convolution2D(1024, n_boxes * (5 + n_classes), ksize=1, stride=1, pad=0, nobias=True),
             bias22 = L.Bias(shape=(n_boxes * (5 + n_classes),)),
         )
-#        self.train = False
         self.finetune = False
         self.n_boxes = n_boxes
         self.n_classes = n_classes
