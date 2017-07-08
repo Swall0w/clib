@@ -46,7 +46,7 @@ class DatasetMixin(object):
         raise NotImplementedError
 
 #class PreprocessedDataset(chainer.dataset.DatasetMixin):
-class PreprocessedDataset(DatasetMixin):
+class YoloPreprocessedDataset(DatasetMixin):
     def __init__(self, dirs=('JPEGImages/','labels/'), root='data/', resize=224, tags = 'voc.names',random=True):
         self.root = root
         self.dirs = dirs
@@ -94,7 +94,6 @@ class PreprocessedDataset(DatasetMixin):
     def get_example(self,i):
         resize = int(*random.sample(self.crop_size,1))
         crop_size = (resize,resize)
-#        print(self.paths[i])
         imagefile = self.image_dir + self.paths[i]
         labelfile = self.label_dir + self.paths[i].split('.')[0] + '.txt'
         image = cv2.imread(imagefile, cv2.IMREAD_UNCHANGED)
