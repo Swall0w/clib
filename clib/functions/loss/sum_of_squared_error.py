@@ -32,4 +32,4 @@ def sum_of_squared_error(x0, x1):
     This function computes sum of squared error between two variables.
 
     """
-   return SumOfSquaredError()(x0, x1)
+    return SumOfSquaredError()(x0, x1)
