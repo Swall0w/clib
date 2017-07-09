@@ -1,8 +1,7 @@
-from chainer import serializers, Variable
-import chainer.functions as F
+from chainer import serializers
 import argparse
-from yolo.model.darknet import Darknet19Predictor, Darknet19
-from yolo.model.yolov2 import *
+from clib.links.model.yolo.darknet import Darknet19Predictor, Darknet19
+from clib.links.model.yolo.yolov2 import YOLOv2, YOLOv2Predictor
 
 
 def copy_conv_layer(src, dst, layers):
