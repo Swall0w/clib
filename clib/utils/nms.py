@@ -1,4 +1,4 @@
-from overlap import box_iou
+from .overlap import box_iou
 
 
 # non maximum suppression
