@@ -1,16 +1,19 @@
 import cv2
 import numpy as np
+
+
 def batch(batch):
     format_size = batch[0][0].shape[1]
     format_batch = []
 
-    for index,item in enumerate(batch):
+    for index, item in enumerate(batch):
         original_image = item[0]
-        transpose_image = np.transpose(original_image,(1,2,0))
-        resized_image = cv2.resize(transpose_image,(format_size,format_size))
-        resized_image = resized_image.transpose(2,0,1).astype(np.float32)
-        format_batch.append((resized_image,batch[index][1]))
+        transpose_image = np.transpose(original_image, (1, 2, 0))
+        resized_image = cv2.resize(transpose_image, (format_size, format_size))
+        resized_image = resized_image.transpose(2, 0, 1).astype(np.float32)
+        format_batch.append((resized_image, batch[index][1]))
     return format_batch
+
 
 def resize_to_yolo(img):
     input_height, input_width, _ = img.shape

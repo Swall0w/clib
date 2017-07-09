@@ -1,12 +1,13 @@
-# coding:utf-8
 import sys
 from chainer.training import extension
 from chainer.training.extensions import log_report as log_report_module
 import requests
 import json
 
+
 class SlackReport(extension.Extension):
-    def __init__(self, entries, log_report='LogReport', username="", url="",channel="",out=sys.stdout):
+    def __init__(self, entries, log_report='LogReport',
+                 username="", url="", channel="", out=sys.stdout):
         self._entries = entries
         self._log_report = log_report
         self._log_len = 0  # number of observations already printed
@@ -38,7 +39,8 @@ class SlackReport(extension.Extension):
         elif isinstance(log_report, log_report_module.LogReport):
             log_report(trainer)  # update the log report
         else:
-            raise TypeError('log report has a wrong type %s' % type(log_report))
+            raise TypeError(
+                'log report has a wrong type {0}'.format(type(log_report)))
 
         log = log_report.log
         log_len = self._log_len

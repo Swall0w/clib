@@ -1,6 +1,6 @@
-import chainer.functions as F
 from chainer import function
 import numpy as np
+
 
 class SumOfSquaredError(function.Function):
 
@@ -9,7 +9,8 @@ class SumOfSquaredError(function.Function):
     def forward_cpu(self, inputs):
         x0, x1 = inputs
         self.diff = x0 - x1
-        diff = self.diff.ravel() # batch_size x input_sizeの1次元展開
+        # batch_size x input_sizeの1次元展開
+        diff = self.diff.ravel()
         return np.array(diff.dot(diff) / 2, dtype=diff.dtype),
 
     def forward_gpu(self, inputs):
@@ -25,6 +26,7 @@ class SumOfSquaredError(function.Function):
     def backward(self, inputs, gy):
         gx0 = self.diff
         return gx0, -gx0
+
 
 def sum_of_squared_error(x0, x1):
     """Sum of squared error function.

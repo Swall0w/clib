@@ -7,6 +7,11 @@ Train and Detect scripts
 
 * YOLO
 
+## Next work
+
+* [AutoEncoder](http://qiita.com/trtd56/items/acf42277c29b57c05651)
+* SSD
+
 ## Future Plan
 ### Image Recognition
 
@@ -38,6 +43,7 @@ Train and Detect scripts
 ### Image Segmentation 
 
 * SigNET model
+* [FlowNet](https://arxiv.org/abs/1504.06852)
 
 ### Sound Processing
 

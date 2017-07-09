@@ -1,48 +1,75 @@
 import cupy
-import chainer
-from chainer import Chain, Variable 
 import chainer.links as L
 import chainer.functions as F
+from chainer import Chain, Variable
 
-class ConvLSTM(chainer.Chain):
+
+class ConvLSTM(Chain):
     """ Convolutional LSTM unit.
 
     This is a Convolutional LSTM unit as a chain.
-    
+
     https://arxiv.org/pdf/1506.04214.pdf
     """
-    def __init__(self,channelIn=1,channelOut=1,ksize=5):
-        padsize = (ksize -1) / 2
+    def __init__(self, channelIn=1, channelOut=1, ksize=5):
+        padsize = (ksize - 1) / 2
         self.channelIn = channelIn
         self.channelOut = channelOut
         self.ksize = ksize
         self.padsize = padsize
+        self.stride = 1
 
-        super(MyLSTM, self).__init__(
-            Wz = L.Convolution2D(channelIn, channelOut, ksize, stride=1, pad=padsize),
-            Wi = L.Convolution2D(channelIn, channelOut, ksize, stride=1, pad=padsize),
-            Wf = L.Convolution2D(channelIn, channelOut, ksize, stride=1, pad=padsize),
-            Wo = L.Convolution2D(channelIn, channelOut, ksize, stride=1, pad=padsize),
-            Rz = L.Convolution2D(channelIn, channelOut, ksize, stride=1, pad=padsize),
-            Ri = L.Convolution2D(channelIn, channelOut, ksize, stride=1, pad=padsize),
-            Rf = L.Convolution2D(channelIn, channelOut, ksize, stride=1, pad=padsize),
-            Ro = L.Convolution2D(channelIn, channelOut, ksize, stride=1, pad=padsize),
+        super(ConvLSTM, self).__init__(
+            Wz=L.Convolution2D(in_channels=self.channelIn,
+                               out_channels=self.channelOut,
+                               ksize=self.ksize, stride=self.stride,
+                               pad=self.padsize),
+            Wi=L.Convolution2D(in_channels=self.channelIn,
+                               out_channels=self.channelOut,
+                               ksize=self.ksize, stride=self.stride,
+                               pad=self.padsize),
+            Wf=L.Convolution2D(in_channels=self.channelIn,
+                               out_channels=self.channelOut,
+                               ksize=self.ksize, stride=self.stride,
+                               pad=self.padsize),
+            Wo=L.Convolution2D(in_channels=self.channelIn,
+                               out_channels=self.channelOut,
+                               ksize=self.ksize, stride=self.stride,
+                               pad=self.padsize),
+            Rz=L.Convolution2D(in_channels=self.channelIn,
+                               out_channels=self.channelOut,
+                               ksize=self.ksize, stride=self.stride,
+                               pad=self.padsize),
+            Ri=L.Convolution2D(in_channels=self.channelIn,
+                               out_channels=self.channelOut,
+                               ksize=self.ksize, stride=self.stride,
+                               pad=self.padsize),
+            Rf=L.Convolution2D(in_channels=self.channelIn,
+                               out_channels=self.channelOut,
+                               ksize=self.ksize, stride=self.stride,
+                               pad=self.padsize),
+            Ro=L.Convolution2D(in_channels=self.channelIn,
+                               out_channels=self.channelOut,
+                               ksize=self.ksize, stride=self.stride,
+                               pad=self.padsize),
         )
 
-    def __call__(self, s): 
-        #s is expected to cupyArray(num, height, width)
+    def __call__(self, s):
+        # s is expected to cupyArray(num, height, width)
         accum_loss = None
-        chan = channelIn
+        chan = self.channelIn
         hei = len(s[0])
         wid = len(s[0][0])
         h = Variable(cupy.zeros((1, chan, hei, wid), dtype=cupy.float32))
         c = Variable(cupy.zeros((1, chan, hei, wid), dtype=cupy.float32))
-        
-        for i in range(len(s) - 1): 
-            #len(s) is expected to 26
 
-            tx = Variable(cupy.array(s[i + 1], dtype=cupy.float32).reshape(1, chan, hei, wid))
-            x_k = Variable(cupy.array(s[i], dtype=cupy.float32).reshape(1, chan, hei, wid))
+        for i in range(len(s) - 1):
+            # len(s) is expected to 26
+
+            tx = Variable(cupy.array(
+                s[i + 1], dtype=cupy.float32).reshape(1, chan, hei, wid))
+            x_k = Variable(cupy.array(
+                s[i], dtype=cupy.float32).reshape(1, chan, hei, wid))
             z0 = self.Wz(x_k) + self.Rz(h)
             z1 = F.tanh(z0)
             i0 = self.Wi(x_k) + self.Ri(h)
