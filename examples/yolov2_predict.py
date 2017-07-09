@@ -138,7 +138,7 @@ if __name__ == "__main__":
             (255, 0, 255),
             3
         )
-        text = '{0}({1})'.format(
+        text = '{0}({1:>3})'.format(
             result["label"], result["probs"].max()*result["conf"]*100)
         cv2.putText(orig_img, text, (left, top-6),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
