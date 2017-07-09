@@ -62,13 +62,11 @@ Train and Detect scripts
 ### Feature
 
 * CNN visualizer
-* Links of convLSTM
-* Extentions of slack notifications
 * Extentions of Visualization on Django?
 
 with train,detect scripts
 
-## Check model 
+## Infomation
 
 * [2016年のディープラーニング論文100選](http://qiita.com/sakaiakira/items/9da1edda802c4884865c)
 * [ディープラーニング関連の○○Netまとめ](http://qiita.com/shinya7y/items/8911856125a3109378d6#_reference-a60de5539cc2a2dd8bd7)
@@ -78,5 +76,8 @@ with train,detect scripts
 ## Done
 
 * darknet
-* SlackReport
 
+## Need fix
+
+* Links of convLSTM
+* Extentions of slack notifications
