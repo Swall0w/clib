@@ -30,8 +30,6 @@ def main():
         model.predictor.finetune = True
         print('darknet19 model loaded.')
     chainer.config.train = True
-#    model.predictor.train = True
-
 
     if args.gpu >= 0:
         chainer.cuda.get_device(args.gpu).use()
