@@ -1,6 +1,7 @@
 import numpy
 from chainer.dataset import iterator
 
+
 class YoloIterator(iterator.Iterator):
     def __init__(self, dataset, batch_size, repeat=True, shuffle=True):
         self.dataset = dataset
@@ -40,8 +41,7 @@ class YoloIterator(iterator.Iterator):
                 if self._order is None:
                     batch += list(self.dataset[:rest])
                 else:
-                    batch += [self.dataset[index]
-                        for index in self._order[:rest]]
+                    batch += [self.dataset[index] for index in self._order[:rest]]
                 self.current_position = rest
             else:
                 self.current_position = N
@@ -61,7 +61,8 @@ class YoloIterator(iterator.Iterator):
         return self.epoch + self.current_position / len(self.dataset)
 
     def serialize(self, serializer):
-        self.current_position = serializer('current_position', self.current_position)
+        self.current_position = serializer(
+            'current_position', self.current_position)
         self.epoch = serializer('epoch', self.epoch)
         self.is_new_epoch = serializer('is_new_epoch', self.is_new_epoch)
         if self._order is not None:

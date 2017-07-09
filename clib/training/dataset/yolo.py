@@ -1,9 +1,10 @@
-#import chainer
+# import chainer
 import numpy as np
 import glob
 import cv2
 import os
 import random
+
 
 class DatasetMixin(object):
     """Default implementation of dataset indexing.
@@ -40,32 +41,37 @@ class DatasetMixin(object):
         raise NotImplementedError
 
     def get_example(self, i):
-        """Returns the i-th example.  
+        """Returns the i-th example.
         Implementations should override it. It should raise :class:`IndexError`
         """
         raise NotImplementedError
 
-#class PreprocessedDataset(chainer.dataset.DatasetMixin):
+
+# class PreprocessedDataset(chainer.dataset.DatasetMixin):
 class YoloPreprocessedDataset(DatasetMixin):
-    def __init__(self, dirs=('JPEGImages/','labels/'), root='data/', resize=224, tags = 'voc.names',random=True):
+    def __init__(self, dirs=('JPEGImages/', 'labels/'), root='data/',
+                 resize=224, tags='voc.names', random=True):
         self.root = root
         self.dirs = dirs
         self.image_dir = self.root + self.dirs[0]
         self.label_dir = self.root + self.dirs[1]
-        self.paths = [os.path.split(f)[-1] for f in glob.glob(self.image_dir + '*') if ('png'in f or 'jpg' in f)]
+        self.paths = [os.path.split(f)[-1] for f in glob.glob(
+            self.image_dir + '*') if ('png'in f or 'jpg' in f)]
         self.tags_path = self.root + tags
         if isinstance(resize, int):
             resize = [resize]
         self.crop_size = resize
         self.random = random
         self.init_tag()
+
     def __len__(self):
         return len(self.paths)
+
     def init_tag(self):
-        with open(self.tags_path,'r') as f:
+        with open(self.tags_path, 'r') as f:
             self.tags = [item.strip() for item in f.readlines()]
 
-    def convert2tuple(self,line):
+    def convert2tuple(self, line):
         line = line.strip().split()
         line[0] = int(line[0])
         line[1] = float(line[1])
@@ -73,9 +79,9 @@ class YoloPreprocessedDataset(DatasetMixin):
         line[3] = float(line[3])
         line[4] = float(line[4])
         return tuple(line)
-        
-    def label_reader(self,labelfile):
-        with open(labelfile,'r') as f:
+
+    def label_reader(self, labelfile):
+        with open(labelfile, 'r') as f:
             lines = [self.convert2tuple(line) for line in f.readlines()]
         ground_truths = []
         for item in lines:
@@ -91,17 +97,17 @@ class YoloPreprocessedDataset(DatasetMixin):
             })
         return ground_truths
 
-    def get_example(self,i):
-        resize = int(*random.sample(self.crop_size,1))
-        crop_size = (resize,resize)
+    def get_example(self, i):
+        resize = int(*random.sample(self.crop_size, 1))
+        crop_size = (resize, resize)
         imagefile = self.image_dir + self.paths[i]
         labelfile = self.label_dir + self.paths[i].split('.')[0] + '.txt'
         image = cv2.imread(imagefile, cv2.IMREAD_UNCHANGED)
         labels = self.label_reader(labelfile)
 
-        image = cv2.resize(image,crop_size)
-        image = image[:,:,:3]
-        image = np.asarray(image,dtype=np.float32)
+        image = cv2.resize(image, crop_size)
+        image = image[:, :, :3]
+        image = np.asarray(image, dtype=np.float32)
         image *= (1.0 / 255.0)  # Scale to [0, 1]
         image = image.transpose(2, 0, 1)
         return image, labels
