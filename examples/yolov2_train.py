@@ -1,14 +1,12 @@
 import argparse
-import numpy as np
 import chainer
-from chainer import optimizers, training, iterators, Variable
+from chainer import optimizers, training
 from chainer.training import extensions
-from chainer.dataset import iterator as itr_module
 
-from yolo.model.yolov2 import YOLOv2, YOLOv2Predictor
-from yolo.trainer.dataset import PreprocessedDataset
-from yolo.trainer.update import YoloUpdater
-from yolo.trainer.iterator import YoloIterator
+from clib.links.model.yolo.yolov2 import YOLOv2, YOLOv2Predictor
+from clib.training.dataset import YoloPreprocessedDataset
+from clib.training.updater import YoloUpdater
+from clib.training.iterator import YoloIterator
 
 def arg():
     parser = argparse.ArgumentParser()
