@@ -3,7 +3,7 @@
 from setuptools import setup, find_packages
 
 setup(name="clib",
-    version="0.1",
+    version="0.15",
     description="chainer module",
     url="https://github.com/Swall0w/clib",
     packages=find_packages(),
