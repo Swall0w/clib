@@ -6,11 +6,13 @@ Train and Detect scripts
 ## Now Working 
 
 * YOLO
+* VAE
 
 ## Next work
 
 * [AutoEncoder](http://qiita.com/trtd56/items/acf42277c29b57c05651)
 * SSD
+* UnitTest
 
 ## Future Plan
 ### Image Recognition
@@ -44,6 +46,7 @@ Train and Detect scripts
 
 * SigNET model
 * [FlowNet](https://arxiv.org/abs/1504.06852)
+* [FlowNet2](https://github.com/lmb-freiburg/flownet2)
 
 ### Sound Processing
 
@@ -69,6 +72,7 @@ Train and Detect scripts
 
 * CNN visualizer
 * Extentions of Visualization on Django?
+* Network Visualizer with []viz.js?](https://github.com/mdaines/viz.js)
 
 with train,detect scripts
 
