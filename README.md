@@ -5,7 +5,7 @@ Train and Detect scripts
 
 ## Now Working 
 
-* YOLO
+* YOLO - on test
 * VAE
 
 ## Next work
