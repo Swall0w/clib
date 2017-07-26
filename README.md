@@ -7,6 +7,7 @@ Train and Detect scripts
 
 * YOLO - on test
 * VAE
+* SOMs
 
 ## Next work
 
