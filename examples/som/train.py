@@ -4,7 +4,7 @@ import chainer.links as L
 from chainer import Chain, Variable
 from chainer import datasets
 
-class SOM(chain):
+class SOM(Chain):
     pass
 
 def main():
