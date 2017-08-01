@@ -3,6 +3,7 @@ import chainer
 import chainer.links as L
 from chainer import Chain, Variable
 from chainer import datasets
+import cv2
 
 class SOM(Chain):
     def __init__(self, width):
@@ -26,7 +27,7 @@ class SOM(Chain):
         delta_x = (lr * self.__neighbor(pos, var).reshape(1, -1)).T.dot(x.data)
         delta_w = (lr * self.__neighbor(pos, var).reshape(1, -1)).T * self.competitive.W.data
         self.competitive.W.data += delta_x if reinforce else - delta_x
-        self.competitive.W.data += delta_w if reinforce else - delta_w
+        self.competitive.W.data -= delta_w if reinforce else - delta_w
 
     def weight_show(self, in_width, ch):
         show_array = np.zeros((in_width * self.width, in_width*self.width, ch),dtype=np.float32)
@@ -36,7 +37,7 @@ class SOM(Chain):
             if ch == 3:
                 show_array[y*in_width:(y+1)*in_width, x*in_width:(x+1)*in_width] = cv2.cvtColor(np.rollaxis(c.reshape(ch, in_width, in_width), 0, 3), cv2.COLOR_RGB2BGR)
             else:
-                show_array[y*in_width:(y+1)*in_width, x*in_width:(x+1)*in_width] = c.reshape(in_width, in_width)
+                show_array[y*in_width:(y+1)*in_width, x*in_width:(x+1)*in_width] = c.reshape(in_width, in_width,1)
         cv2.imshow('win', show_array)
         cv2.waitKey(1)
 
