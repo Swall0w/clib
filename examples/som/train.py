@@ -64,7 +64,8 @@ def main():
         var = 2.0 * (1.0 - float(it) / len(train))
 
         som.incr_learn(x, lr=lr, var=var)
-        som.weight_show(in_width=28, ch=1)
+        #som.weight_show(in_width=28, ch=1)
+        som.weight_show(in_width=32, ch=3)
 
 
 if __name__ == '__main__':
