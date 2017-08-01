@@ -24,9 +24,39 @@ class SOM(Chain):
     def incr_learn(self, x, lr=0.1, var=4.0, reinforce=True):
         pos = self.predict(x)
         delta_x = (lr * self.__neighbor(pos, var).reshape(1, -1)).T.dot(x.data)
+        delta_w = (lr * self.__neighbor(pos, var).reshape(1, -1)).T * self.competitive.W.data
+        self.competitive.W.data += delta_x if reinforce else - delta_x
+        self.competitive.W.data += delta_w if reinforce else - delta_w
+
+    def weight_show(self, in_width, ch):
+        show_array = np.zeros((in_width * self.width, in_width*self.width, ch),dtype=float32)
+        for i, c in enumerate(self.competitive.W.data):
+            y = i / self.width
+            x = i % self.width
+            if ch == 3:
+                show_array[y*in_width:(y+1)*in_width, x*in_width:(x+1)*in_width] = cv2.cvtColor(np.rollaxis(c.reshape(ch, in_width, in_width), 0, 3), cv2.COLOR_RGB2BGR)
+            else:
+                show_array[y*in_width:(y+1)*in_width, x*in_width:(x+1)*in_width] = c.reshape(in_width, in_width)
+        cv2.imshow('win', show_array)
+        cv2.waitKey(1)
+
 
 def main():
-    pass
+    som = SOM(width=10)
+    train, test = datasets.get_mnist()
+
+    for it, tr in enumerate(train):
+        if it % 5000 == 0:
+            print('Iteration: {0}'.format(it))
+
+        x = Variable(np.array([tr[0]], dtype=np.float32))
+
+        lr = 0.05 * (1.0 - float(it) / len(train))
+        lr = 2.0 * (1.0 - float(it) / len(train))
+
+        som.incr_learn(x, lr=lr, var=var)
+
+        som.weight_show(in_width=28, ch =1)
 
 if __name__ == '__main__':
     main()
