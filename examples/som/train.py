@@ -29,9 +29,9 @@ class SOM(Chain):
         self.competitive.W.data += delta_w if reinforce else - delta_w
 
     def weight_show(self, in_width, ch):
-        show_array = np.zeros((in_width * self.width, in_width*self.width, ch),dtype=float32)
+        show_array = np.zeros((in_width * self.width, in_width*self.width, ch),dtype=np.float32)
         for i, c in enumerate(self.competitive.W.data):
-            y = i / self.width
+            y = i // self.width
             x = i % self.width
             if ch == 3:
                 show_array[y*in_width:(y+1)*in_width, x*in_width:(x+1)*in_width] = cv2.cvtColor(np.rollaxis(c.reshape(ch, in_width, in_width), 0, 3), cv2.COLOR_RGB2BGR)
@@ -52,7 +52,7 @@ def main():
         x = Variable(np.array([tr[0]], dtype=np.float32))
 
         lr = 0.05 * (1.0 - float(it) / len(train))
-        lr = 2.0 * (1.0 - float(it) / len(train))
+        var = 2.0 * (1.0 - float(it) / len(train))
 
         som.incr_learn(x, lr=lr, var=var)
 
