@@ -51,7 +51,8 @@ class SOM(Chain):
 
 def main():
     som = SOM(width=10)
-    train, test = datasets.get_mnist()
+    #train, test = datasets.get_mnist()
+    train, test = datasets.get_cifar10()
 
     for it, tr in enumerate(train):
         if it % 5000 == 0:
