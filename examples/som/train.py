@@ -42,16 +42,28 @@ class SOM(Chain):
             y = i // self.width
             x = i % self.width
             if ch == 3:
-                show_array[y*in_width:(y+1)*in_width, x*in_width:(x+1)*in_width] = cv2.cvtColor(np.rollaxis(c.reshape(ch, in_width, in_width), 0, 3), cv2.COLOR_RGB2BGR)
+                show_array[
+                            y*in_width:(y+1)*in_width,
+                            x*in_width:(x+1)*in_width
+                ] = cv2.cvtColor(
+                        np.rollaxis(
+                            c.reshape(ch, in_width, in_width),
+                            0,
+                            3
+                        ), cv2.COLOR_RGB2BGR
+                    )
             else:
-                show_array[y*in_width:(y+1)*in_width, x*in_width:(x+1)*in_width] = c.reshape(in_width, in_width, 1)
+                show_array[
+                            y*in_width:(y+1)*in_width,
+                            x*in_width:(x+1)*in_width
+                ] = c.reshape(in_width, in_width, 1)
         cv2.imshow('win', show_array)
         cv2.waitKey(1)
 
 
 def main():
     som = SOM(width=10)
-    #train, test = datasets.get_mnist()
+    #  train, test = datasets.get_mnist()
     train, test = datasets.get_cifar10()
 
     for it, tr in enumerate(train):
@@ -64,7 +76,7 @@ def main():
         var = 2.0 * (1.0 - float(it) / len(train))
 
         som.incr_learn(x, lr=lr, var=var)
-        #som.weight_show(in_width=28, ch=1)
+        #  som.weight_show(in_width=28, ch=1)
         som.weight_show(in_width=32, ch=3)
 
 
