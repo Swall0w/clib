@@ -29,7 +29,7 @@ class SOM(Chain):
     def incr_learn(self, x, lr=0.1, var=4.0, reinforce=True):
         pos = self.predict(x)
         delta_x = (lr * self.__neighbor(
-            pos, var).reshape(1, -1)).T.dot(x.data)
+            pos, var).reshape(1, -1)).T.dot(x.data.ravel().reshape(1,-1))
         delta_w = (lr * self.__neighbor(
             pos, var).reshape(1, -1)).T * self.competitive.W.data
         self.competitive.W.data += delta_x if reinforce else - delta_x
@@ -63,7 +63,7 @@ class SOM(Chain):
 
 def main():
     som = SOM(width=10)
-    #  train, test = datasets.get_mnist()
+    #train, test = datasets.get_mnist()
     train, test = datasets.get_cifar10()
 
     for it, tr in enumerate(train):
@@ -76,7 +76,7 @@ def main():
         var = 2.0 * (1.0 - float(it) / len(train))
 
         som.incr_learn(x, lr=lr, var=var)
-        #  som.weight_show(in_width=28, ch=1)
+        #som.weight_show(in_width=28, ch=1)
         som.weight_show(in_width=32, ch=3)
 
 
