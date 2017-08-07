@@ -5,20 +5,18 @@ Train and Detect scripts
 
 ## Now Working 
 
-* YOLO - on test
 * VAE
-* SOMs
+* [AutoEncoder](http://qiita.com/trtd56/items/acf42277c29b57c05651)
+* ConvolutinalAutoEncoder
+* AlexNet model
 
 ## Next work
 
-* [AutoEncoder](http://qiita.com/trtd56/items/acf42277c29b57c05651)
-* SSD
 * UnitTest
 
 ## Future Plan
 ### Image Recognition
 
-* AlexNet model
 * NIN model
 * Densely Connected Convolutional Networks (very similar to RoR?)
 * ResNet model
@@ -30,7 +28,7 @@ Train and Detect scripts
 ### Object Detection
 
 * Yolo model
-* ssd model
+* SSD
 * dssd model
 
 ### Image Generative Model
