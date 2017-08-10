@@ -6,7 +6,6 @@ Train and Detect scripts
 ## Now Working 
 
 * VAE
-* [AutoEncoder](http://qiita.com/trtd56/items/acf42277c29b57c05651)
 * ConvolutinalAutoEncoder
 * AlexNet model
 
