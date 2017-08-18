@@ -13,3 +13,4 @@ tmp
 build
 dist
 *cache*
+docs/_build
