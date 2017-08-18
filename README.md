@@ -80,6 +80,7 @@ with train,detect scripts
 * [ディープラーニング関連の○○Netまとめ](http://qiita.com/shinya7y/items/8911856125a3109378d6#_reference-a60de5539cc2a2dd8bd7)
 * [DeepLearning研究 2016年のまとめ](http://qiita.com/eve_yk/items/f4b274da7042cba1ba76)
 * [2016年の深層学習を用いた画像認識モデル](http://qiita.com/aiskoaskosd/items/59c49f2e2a6d76d62798)
+* [chainer](https://github.com/chainer/chainer/wiki/External-examples)
 
 ## Done
 
