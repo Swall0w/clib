@@ -13,6 +13,9 @@ clean-build:
 	rm --force --recursive dist/
 	rm --force --recursive *.egg-info
 
+isort:
+	sh -c "isort --skip-glob=.tox --recursive ."
+
 pep:
 	pep8 .
 

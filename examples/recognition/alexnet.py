@@ -1,7 +1,8 @@
 import chainer
 import chainer.functions as F
-from chainer import initializers
 import chainer.links as L
+from chainer import initializers
+
 
 class Alex(chainer.Chain):
     def __init__(self):

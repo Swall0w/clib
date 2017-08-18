@@ -1,7 +1,8 @@
-import cupy
-import chainer.links as L
 import chainer.functions as F
+import chainer.links as L
 from chainer import Chain, Variable
+
+import cupy
 
 
 class ConvLSTM(Chain):

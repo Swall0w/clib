@@ -1,6 +1,7 @@
 from chainer.links import VGG16Layers
 from PIL import Image
 
+
 def main():
     model = VGG16Layers()
     img = Image.open('0.jpg')

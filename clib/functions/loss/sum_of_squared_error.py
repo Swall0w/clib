@@ -1,5 +1,5 @@
-from chainer import function
 import numpy as np
+from chainer import function
 
 
 class SumOfSquaredError(function.Function):

@@ -1,13 +1,12 @@
 import argparse
+import os
 import random
 
-import numpy as np
-
 import chainer
+import numpy as np
 from chainer import training
 from chainer.training import extensions
 from clib.links.model.superresolution.srcnn import SRCNN, SRCNNPredictor
-import os
 
 
 def arg():

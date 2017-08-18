@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
 import argparse
+
 import chainer
 from chainer import optimizers, training
 from chainer.training import extensions
-
 from clib.links.model.yolo.yolov2 import YOLOv2, YOLOv2Predictor
 from clib.training.dataset import YoloPreprocessedDataset
-from clib.training.updater import YoloUpdater
 from clib.training.iterator import YoloIterator
+from clib.training.updater import YoloUpdater
 
 
 def arg():

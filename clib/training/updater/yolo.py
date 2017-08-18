@@ -1,8 +1,8 @@
 import numpy as np
-from chainer import training, Variable
+import six
+from chainer import Variable, training
 from chainer.dataset import iterator as itr_module
 from clib.converts import format_image_size
-import six
 
 
 def darknet_converter(batch, device=None):

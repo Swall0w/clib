@@ -3,12 +3,11 @@
 from https://github.com/pfnet/chainer/blob/master/examples/vae/net.py
 '''
 
-import six
-
 import chainer
 import chainer.functions as F
-from chainer.functions.loss.vae import gaussian_kl_divergence
 import chainer.links as L
+import six
+from chainer.functions.loss.vae import gaussian_kl_divergence
 
 
 class VAE(chainer.Chain):

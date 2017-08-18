@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
-from chainer import serializers
 import argparse
-from clib.links.model.yolo.darknet import Darknet19Predictor, Darknet19
+
+from chainer import serializers
+from clib.links.model.yolo.darknet import Darknet19, Darknet19Predictor
 from clib.links.model.yolo.yolov2 import YOLOv2, YOLOv2Predictor
 
 

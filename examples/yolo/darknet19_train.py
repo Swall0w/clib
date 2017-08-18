@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
 import argparse
-import chainer
-from chainer import optimizers, training, iterators
-from chainer.training import extensions
 
+import chainer
+from chainer import iterators, optimizers, training
+from chainer.training import extensions
 from clib.links.model.yolo.darknet import Darknet19, Darknet19Predictor
 from clib.training.dataset.yolo import YoloPreprocessedDataset
 from clib.training.updater.yolo import darknet_converter

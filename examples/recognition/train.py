@@ -1,8 +1,10 @@
 import argparse
+
 import chainer
+import chainer.links as L
 from chainer import training
 from chainer.training import extensions
-import chainer.links as L
+
 from alex import Alex
 
 

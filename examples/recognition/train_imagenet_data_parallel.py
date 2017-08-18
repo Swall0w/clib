@@ -13,14 +13,13 @@ Please see https://github.com/nvidia/nccl#build--run .
 
 """
 from __future__ import print_function
+
 import argparse
 
-import numpy as np
-
 import chainer
+import numpy as np
 from chainer import training
-from chainer.training import extensions
-from chainer.training import updaters
+from chainer.training import extensions, updaters
 
 import alex
 import googlenet

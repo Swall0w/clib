@@ -1,8 +1,8 @@
-import numpy as np
 import chainer
 import chainer.links as L
-from chainer import Chain, Variable
-from chainer import datasets
+import numpy as np
+from chainer import Chain, Variable, datasets
+
 import cv2
 
 

@@ -1,11 +1,9 @@
-import numpy as np
-from chainer import Variable, Chain
-import chainer.links as L
 import chainer.functions as F
-from chainer import reporter
-
-from clib.utils import Box, multi_box_iou, box_iou
+import chainer.links as L
+import numpy as np
+from chainer import Chain, Variable, reporter
 from clib.transforms import reorg
+from clib.utils import Box, box_iou, multi_box_iou
 
 
 class YOLOv2(Chain):

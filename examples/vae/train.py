@@ -2,16 +2,18 @@
 
 import argparse
 import os
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import numpy as np
 
 import chainer
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
 from chainer import cuda, training
-from chainer import training
-from chainer.training import extensions, Trainer
+from chainer.training import Trainer, extensions
+
 import net
+
+matplotlib.use('Agg')
+
 
 def save_image(x, filename):
     fig, ax = plt.subplots(3, 3, figsize=(9, 9), dpi=100)

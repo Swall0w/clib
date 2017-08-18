@@ -1,9 +1,8 @@
-import numpy as np
-from chainer import Chain 
-import chainer.links as L
 import chainer.functions as F
-from chainer import reporter
+import chainer.links as L
 import clib.functions as CF
+import numpy as np
+from chainer import Chain, reporter
 
 
 class Darknet19(Chain):

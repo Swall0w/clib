@@ -1,9 +1,11 @@
 # import chainer
-import numpy as np
 import glob
-import cv2
 import os
 import random
+
+import numpy as np
+
+import cv2
 
 
 class DatasetMixin(object):

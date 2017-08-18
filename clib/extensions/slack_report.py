@@ -1,8 +1,9 @@
+import json
 import sys
+
+import requests
 from chainer.training import extension
 from chainer.training.extensions import log_report as log_report_module
-import requests
-import json
 
 
 class SlackReport(extension.Extension):

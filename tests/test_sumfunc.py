@@ -1,6 +1,8 @@
-from .context import clib
-from clib.tmp import sumfunc
 import unittest
+
+from clib.tmp import sumfunc
+
+from .context import clib
 
 
 class SumFuncTest(unittest.TestCase):
@@ -9,4 +11,3 @@ class SumFuncTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

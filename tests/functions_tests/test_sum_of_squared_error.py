@@ -1,7 +1,9 @@
 import unittest
-import numpy
+
 import chainer
+import numpy
 from chainer import testing
+
 
 @testing.parameterize(*testing.product({
     'shape': [(3, 2), ()],
