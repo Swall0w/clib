@@ -6,7 +6,7 @@ import numpy as np
 import chainer
 from chainer import training
 from chainer.training import extensions
-from srcnn import SRCNN, SRCNNPredictor
+from clib.links.model.superresolution.srcnn import SRCNN, SRCNNPredictor
 import os
 
 
