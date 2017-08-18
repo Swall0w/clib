@@ -10,3 +10,5 @@ tmp
 *.tar.gz
 *.txt
 *.egg-info/
+build
+dist
