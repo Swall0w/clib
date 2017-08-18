@@ -12,6 +12,7 @@ Train and Detect scripts
 ## Next work
 
 * UnitTest
+* Eliminate opencv in clib except train script.
 
 ## Future Plan
 ### Image Recognition
