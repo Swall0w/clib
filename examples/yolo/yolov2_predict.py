@@ -1,15 +1,13 @@
-#!/usr/bin/env python
-
 import argparse
 
 import chainer.functions as F
 import numpy as np
 from chainer import Variable, cuda, serializers
+from clib.converts.format_image_size import resize_to_yolo
+from clib.links.model.yolo.yolov2 import YOLOv2, YOLOv2Predictor
+from clib.utils import Box, nms
 
 import cv2
-from yolo.common.format_image_size import resize_to_yolo
-from yolo.common.utils import Box, nms
-from yolo.model.yolov2 import YOLOv2, YOLOv2Predictor
 
 
 class Predictor:
