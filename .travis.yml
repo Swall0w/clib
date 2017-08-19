@@ -34,4 +34,8 @@ script:
   - pip install autopep8
   - pip install mock
   - pip install pytest
+  - pip install codeclimate-test-reporter
   - make test
+
+after_success:
+  - CODECLIMATE_REPO_TOKEN=2f7f6297e9651d9a770ef1fd85bc2af4d48ea1dd3c781b6214b0712089fa702f codeclimate-test-reporter
