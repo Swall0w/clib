@@ -1,0 +1,10 @@
+language: python
+python:
+    - 3.6.1
+script: py.test tests
+
+notifications:
+    emails:
+        - technext.jpn@gmail.com
+    on_success: always
+    on_failure: always
