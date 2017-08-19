@@ -1,6 +1,9 @@
 # clib
 
 [![Build Status](https://travis-ci.org/Swall0w/clib.svg?branch=master)](https://travis-ci.org/Swall0w/clib)
+[![Code Climate](https://codeclimate.com/github/Swall0w/clib/badges/gpa.svg)](https://codeclimate.com/github/Swall0w/clib)
+[![Issue Count](https://codeclimate.com/github/Swall0w/clib/badges/issue_count.svg)](https://codeclimate.com/github/Swall0w/clib)
+[![Test Coverage](https://codeclimate.com/github/Swall0w/clib/badges/coverage.svg)](https://codeclimate.com/github/Swall0w/clib/coverage)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
 Train and Detect scripts
