@@ -26,4 +26,4 @@ install:
 	python3 setup.py install
 
 test: clean-pyc
-	py.test --verbose --color=yes $(TEST_PATH) --cov
+	py.test --verbose --color=yes $(TEST_PATH)

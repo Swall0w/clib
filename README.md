@@ -4,7 +4,6 @@ clib
 [![Build Status](https://travis-ci.org/Swall0w/clib.svg?branch=master)](https://travis-ci.org/Swall0w/clib)
 [![Code Climate](https://codeclimate.com/github/Swall0w/clib/badges/gpa.svg)](https://codeclimate.com/github/Swall0w/clib)
 [![Issue Count](https://codeclimate.com/github/Swall0w/clib/badges/issue_count.svg)](https://codeclimate.com/github/Swall0w/clib)
-[![Test Coverage](https://codeclimate.com/github/Swall0w/clib/badges/coverage.svg)](https://codeclimate.com/github/Swall0w/clib/coverage)
 [![codecov](https://codecov.io/gh/Swall0w/clib/branch/master/graph/badge.svg)](https://codecov.io/gh/Swall0w/clib)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
@@ -109,7 +108,7 @@ After installation, you only test train code in examples.
 * Hybrid computing using a neural network with dynamic external memory
 * Learning to learn by gradient descent by gradient descent
 * Convolutional Seq2Seq model
-* [Seq2Seq](http://qiita.com/kenchin110100/items/b34f5106d5a211f4c004)
+* [Seq2Seq](https://github.com/Swall0w/Seq2SeqChatbot)
 
 ### Features
 
