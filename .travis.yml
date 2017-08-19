@@ -26,6 +26,7 @@ install:
   - source activate clib;
   - pip install -e .
   - pip install chainer
+  - pip install codecov
 
 script:
   - pwd
@@ -38,4 +39,5 @@ script:
   - make test
 
 after_success:
-  - CODECLIMATE_REPO_TOKEN=2f7f6297e9651d9a770ef1fd85bc2af4d48ea1dd3c781b6214b0712089fa702f codeclimate-test-reporter
+  # - CODECLIMATE_REPO_TOKEN=2f7f6297e9651d9a770ef1fd85bc2af4d48ea1dd3c781b6214b0712089fa702f codeclimate-test-reporter
+  - codecov -t d03d5756-3cfe-4cfb-b54c-87449deb733c

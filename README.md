@@ -1,25 +1,62 @@
-# clib
+clib
+====
 
 [![Build Status](https://travis-ci.org/Swall0w/clib.svg?branch=master)](https://travis-ci.org/Swall0w/clib)
 [![Code Climate](https://codeclimate.com/github/Swall0w/clib/badges/gpa.svg)](https://codeclimate.com/github/Swall0w/clib)
 [![Issue Count](https://codeclimate.com/github/Swall0w/clib/badges/issue_count.svg)](https://codeclimate.com/github/Swall0w/clib)
 [![Test Coverage](https://codeclimate.com/github/Swall0w/clib/badges/coverage.svg)](https://codeclimate.com/github/Swall0w/clib/coverage)
+[![codecov](https://codecov.io/gh/Swall0w/clib/branch/master/graph/badge.svg)](https://codecov.io/gh/Swall0w/clib)))]]
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
-Train and Detect scripts
+A helpful library for modeling neural networks
 
-    pip install git+https://github.com/Swall0w/clib --no-cache-dir
+## Description
 
-## Now Working 
+`clib` is modeling Neural Networks tool that contains common function for training.
+In `clib`, there're functions and classes implemented with chainer.
+In `examples`, there're train and test scripts.
+We use Trainer for training codes.
 
+## Requirement
+
+* numpy
+* chainer
+* cv2
+* python3
+* PIL
+
+## Usage
+
+train and test script are in examples. See them.
+
+## Installation
+
+1. Clone this repository.
+2. Build
+    ```console
+    $ make build
+    ```
+2. Install
+    ```console
+    $ make install
+    ```
+After installation, you only test train code in examples.
+
+## Features
+
+* Extentions of slack notifications
+* SOMs
 * VAE
 * ConvolutinalAutoEncoder
 * AlexNet model
+* Links of convLSTM
+* Darknet19
+* Yolov2
 
-## Next work
+## Todo
 
-* UnitTest
 * Eliminate opencv in clib except train script.
+* Testcode
 
 ## Future Plan
 ### Image Recognition
@@ -34,9 +71,9 @@ Train and Detect scripts
 
 ### Object Detection
 
-* Yolo model
 * SSD
-* dssd model
+* DSSD model
+* Feature Pyramid Networks
 
 ### Image Generative Model
 * pix2pix model
@@ -74,13 +111,11 @@ Train and Detect scripts
 * Convolutional Seq2Seq model
 * [Seq2Seq](http://qiita.com/kenchin110100/items/b34f5106d5a211f4c004)
 
-### Feature
+### Features
 
 * CNN visualizer
 * Extentions of Visualization on Django?
-* Network Visualizer with []viz.js?](https://github.com/mdaines/viz.js)
-
-with train,detect scripts
+* Network Visualizer with [viz.js?](https://github.com/mdaines/viz.js)
 
 ## Infomation
 
@@ -89,12 +124,3 @@ with train,detect scripts
 * [DeepLearning研究 2016年のまとめ](http://qiita.com/eve_yk/items/f4b274da7042cba1ba76)
 * [2016年の深層学習を用いた画像認識モデル](http://qiita.com/aiskoaskosd/items/59c49f2e2a6d76d62798)
 * [chainer](https://github.com/chainer/chainer/wiki/External-examples)
-
-## Done
-
-* darknet
-
-## Need fix
-
-* Links of convLSTM
-* Extentions of slack notifications
