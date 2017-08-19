@@ -13,14 +13,14 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
+sys.path.insert(0, os.path.abspath('../clib'))
+
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+# If extensions (or modules to document with autodoc) are in another directory,
+# add these directories to sys.path here. If the directory is relative to the
 import sys
-sys.path.insert(0, os.path.abspath('../clib'))
-
 
 # -- General configuration ------------------------------------------------
 
@@ -178,5 +178,3 @@ epub_copyright = copyright
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
-
-

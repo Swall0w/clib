@@ -1,9 +1,8 @@
+import os
 import unittest
 
 import clib
 from clib.utils import viz_bbox
-import os
-
 from PIL import Image
 
 
