@@ -1,4 +1,7 @@
 # clib
+
+![Badge Status](https://services-as-a-ci)
+
 Train and Detect scripts
 
     pip install git+https://github.com/Swall0w/clib --no-cache-dir
