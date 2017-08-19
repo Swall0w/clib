@@ -5,9 +5,8 @@ import numpy as np
 from chainer import Variable, cuda, serializers
 from clib.converts.format_image_size import resize_to_yolo
 from clib.links.model.yolo.yolov2 import YOLOv2, YOLOv2Predictor
-from clib.utils import Box, nms
-
-import cv2
+from clib.utils import Box, nms, viz_bbox
+from PIL import Image
 
 
 class Predictor:
@@ -113,11 +112,11 @@ def arg():
 
 if __name__ == "__main__":
     args = arg()
-    image_file = args.input
-
-    # read image
     print("loading image...")
-    orig_img = cv2.imread(image_file)
+    orig_img = Image.open(args.input)
+
+    # Convert RGB to BGR
+    cv_img = np.array(orig_img)[:,:,::-1].copy()
 
     predictor = Predictor(
         weight_file=args.model, data_label=args.names,
@@ -125,22 +124,19 @@ if __name__ == "__main__":
         detection_thresh=args.detection, iou_thresh=args.iou)
     import time
     start_time = time.time()
-    nms_results = predictor(orig_img)
+    nms_results = predictor(cv_img)
     duration = time.time() - start_time
     print('duration :', duration)
+    print(nms_results)
 
-    # draw result
+    outputs = []
     for result in nms_results:
-        left, top = result["box"].int_left_top()
-        cv2.rectangle(
-            orig_img,
-            result["box"].int_left_top(), result["box"].int_right_bottom(),
-            (255, 0, 255),
-            3
-        )
-        text = '{0}({1:>3})'.format(
-            result["label"], result["probs"].max()*result["conf"]*100)
-        cv2.putText(orig_img, text, (left, top-6),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
-        print(text)
-    cv2.imwrite(args.output, orig_img)
+        output = {}
+        output['left'], output['top'] = result["box"].int_left_top()
+        output['right'], output['bottom'] = result["box"].int_right_bottom()
+        output['class'] = result['label']
+        output['prob'] = result['probs'].max() * result['conf'] * 100
+        outputs.append(output)
+
+    output_img = viz_bbox(orig_img, outputs)
+    output_img.save(args.output)
