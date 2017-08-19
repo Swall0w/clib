@@ -5,7 +5,7 @@ clib
 [![Code Climate](https://codeclimate.com/github/Swall0w/clib/badges/gpa.svg)](https://codeclimate.com/github/Swall0w/clib)
 [![Issue Count](https://codeclimate.com/github/Swall0w/clib/badges/issue_count.svg)](https://codeclimate.com/github/Swall0w/clib)
 [![Test Coverage](https://codeclimate.com/github/Swall0w/clib/badges/coverage.svg)](https://codeclimate.com/github/Swall0w/clib/coverage)
-[![codecov](https://codecov.io/gh/Swall0w/clib/branch/master/graph/badge.svg)](https://codecov.io/gh/Swall0w/clib)))]]
+[![codecov](https://codecov.io/gh/Swall0w/clib/branch/master/graph/badge.svg)](https://codecov.io/gh/Swall0w/clib)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
 A helpful library for modeling neural networks
