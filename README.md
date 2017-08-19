@@ -1,6 +1,7 @@
 # clib
 
-![Badge Status](https://services-as-a-ci)
+[![Build Status](https://travis-ci.org/Swall0w/clib.svg?branch=master)](https://travis-ci.org/Swall0w/clib)
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
 Train and Detect scripts
 
