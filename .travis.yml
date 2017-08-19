@@ -1,8 +1,6 @@
 language: python
 python:
   - "3.6"
-env:
-  - CHAINER_VERSION=">=2.0" OPTIONAL_MODULES=1
 sudo: false
 dist: trusty
 
@@ -24,13 +22,10 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   - conda info -a
-
-  - if [[ "$OPTIONAL_MODULES" == "1" ]]; then
-      conda env create -f environment.yml;
-      source activate clib;
-    fi
+  - conda env create -f environment.yml;
+  - source activate clib;
   - pip install -e .
-  - pip install "chainer$CHAINER_VERSION"
+  - pip install chainer
 
 script:
   - pwd
@@ -38,5 +33,5 @@ script:
   - pip install hacking
   - pip install autopep8
   - pip install mock
-  - pip install py.test
+  - pip install pytest
   - make test
