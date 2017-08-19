@@ -41,7 +41,8 @@ class YoloIterator(iterator.Iterator):
                 if self._order is None:
                     batch += list(self.dataset[:rest])
                 else:
-                    batch += [self.dataset[index] for index in self._order[:rest]]
+                    batch += ([self.dataset[index] for index in
+                              self._order[:rest]])
                 self.current_position = rest
             else:
                 self.current_position = N

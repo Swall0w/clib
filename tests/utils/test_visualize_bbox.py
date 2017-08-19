@@ -1,7 +1,6 @@
 import unittest
 
 import clib
-#from clib.utils.visualize_bbox import viz_bbox
 from clib.utils import viz_bbox
 import os
 

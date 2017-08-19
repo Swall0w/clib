@@ -10,7 +10,8 @@ def darknet_converter(batch, device=None):
     import numpy
 
     def _concat_arrays(arrays):
-        if not isinstance(arrays[0], numpy.ndarray) and not isinstance(arrays[0], cuda.ndarray):
+        if (not isinstance(arrays[0], numpy.ndarray) and
+                not isinstance(arrays[0], cuda.ndarray)):
             arrays = numpy.asarray(arrays)
         xp = cuda.get_array_module(arrays[0])
         with cuda.get_device(arrays[0]):
@@ -43,7 +44,8 @@ def yolo_converter(batch, device=None):
     import numpy
 
     def _concat_arrays(arrays):
-        if not isinstance(arrays[0], numpy.ndarray) and not isinstance(arrays[0], cuda.ndarray):
+        if (not isinstance(arrays[0], numpy.ndarray) and
+                not isinstance(arrays[0], cuda.ndarray)):
             arrays = numpy.asarray(arrays)
         xp = cuda.get_array_module(arrays[0])
         with cuda.get_device(arrays[0]):
@@ -101,7 +103,8 @@ class DarknetUpdater(training.StandardUpdater):
         import numpy
 
         def _concat_arrays(arrays):
-            if not isinstance(arrays[0], numpy.ndarray) and not isinstance(arrays[0], cuda.ndarray):
+            if (not isinstance(arrays[0], numpy.ndarray) and
+                    not isinstance(arrays[0], cuda.ndarray)):
                 arrays = numpy.asarray(arrays)
             xp = cuda.get_array_module(arrays[0])
             with cuda.get_device(arrays[0]):
@@ -168,7 +171,8 @@ class YoloUpdater(training.StandardUpdater):
         import numpy
 
         def _concat_arrays(arrays):
-            if not isinstance(arrays[0], numpy.ndarray) and not isinstance(arrays[0], cuda.ndarray):
+            if (not isinstance(arrays[0], numpy.ndarray) and
+                    not isinstance(arrays[0], cuda.ndarray)):
                 arrays = numpy.asarray(arrays)
             xp = cuda.get_array_module(arrays[0])
             with cuda.get_device(arrays[0]):

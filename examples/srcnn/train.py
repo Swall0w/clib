@@ -12,8 +12,10 @@ from clib.links.model.superresolution.srcnn import SRCNN, SRCNNPredictor
 def arg():
     parser = argparse.ArgumentParser(
         description='SRCNN trainer')
-    parser.add_argument('--train', help='Path to training image-label list file')
-    parser.add_argument('--val', help='Path to validation image-label list file')
+    parser.add_argument('--train',
+                        help='Path to training image-label list file')
+    parser.add_argument('--val',
+                        help='Path to validation image-label list file')
     parser.add_argument('--batchsize', '-B', type=int, default=32,
                         help='Learning minibatch size')
     parser.add_argument('--epoch', '-E', type=int, default=10,
@@ -79,6 +81,7 @@ def read_dataset(pathfile):
     elif isinstance(pathfile, list):
         return pathfile
 
+
 def main():
     args = arg()
 
@@ -88,10 +91,10 @@ def main():
         chainer.cuda.get_device_from_id(args.gpu).use()  # Make the GPU current
         model.to_gpu()
 
-
     cropsize = 64
     train = PreprocessedDataset(read_dataset(args.train), args.root, cropsize)
-    val = PreprocessedDataset(read_dataset(args.val), args.root, cropsize, False)
+    val = PreprocessedDataset(
+        read_dataset(args.val), args.root, cropsize, False)
 
     train_iter = chainer.iterators.MultiprocessIterator(
         train, args.batchsize, n_processes=args.loaderjob)

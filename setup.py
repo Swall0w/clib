@@ -7,7 +7,7 @@ setup(
     version="0.16",
     description="Neural Network module with chainer",
     url="https://github.com/Swall0w/clib",
-    install_requires=['numpy','chainer'],
+    install_requires=['numpy', 'chainer'],
     license=license,
     packages=find_packages(exclude=('tests')),
     test_suite='tests',

@@ -1,5 +1,4 @@
 from clib.utils.bbox import Box
-#from clib.utils.debug import print_cnn_info
 from clib.utils.nms import nms
 from clib.utils.overlap import (
                             multi_box_iou,

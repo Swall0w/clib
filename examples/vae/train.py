@@ -22,6 +22,7 @@ def save_image(x, filename):
     fig.savefig(filename)
     plt.close('all')
 
+
 def main():
     parser = argparse.ArgumentParser(description='Chainer example: MNIST')
     parser.add_argument('--resume', '-r', default='',
@@ -38,7 +39,8 @@ def main():
                         help='Use tiny datasets for quick tests')
     parser.add_argument('--out', '-o', type=str, default='./result/',
                         help='dir to save snapshots.')
-    parser.add_argument('--interval', '-i', type=int, default=5, help='interval of save images.')
+    parser.add_argument('--interval', '-i', type=int, default=5,
+                        help='interval of save images.')
     parser.add_argument
     args = parser.parse_args()
 
@@ -63,17 +65,23 @@ def main():
 
     train, test = chainer.datasets.get_mnist(withlabel=False)
     train_iter = chainer.iterators.SerialIterator(train, args.batchsize)
-    test_iter = chainer.iterators.SerialIterator(test, args.batchsize, repeat=False, shuffle=False)
+    test_iter = chainer.iterators.SerialIterator(
+        test, args.batchsize, repeat=False, shuffle=False)
 
-    updater = training.StandardUpdater(train_iter, optimizer, device=args.gpu)
-    trainer = training.Trainer(updater, (args.epoch, 'epoch'), out=args.out)
-    trainer.extend(extensions.Evaluator(test_iter, model, device=args.gpu))
+    updater = training.StandardUpdater(
+        train_iter, optimizer, device=args.gpu)
+    trainer = training.Trainer(
+        updater, (args.epoch, 'epoch'), out=args.out)
+    trainer.extend(extensions.Evaluator(
+        test_iter, model, device=args.gpu))
 
     if not os.path.exists(os.path.join(args.out, 'cg.dot')):
         print('dump computational graph of `main/loss`')
         trainer.extend(extensions.dump_graph('main/loss'))
 
-    trainer.extend(extensions.snapshot(filename='snapshot_epoch_{.updater.epoch}'), trigger=(args.interval, 'epoch'))
+    trainer.extend(extensions.snapshot(
+                    filename='snapshot_epoch_{.updater.epoch}'),
+                   trigger=(args.interval, 'epoch'))
 
     trainer.extend(extensions.LogReport())
     trainer.extend(extensions.PrintReport(
@@ -82,24 +90,28 @@ def main():
 
     @training.make_extension(trigger=(args.interval, 'epoch'))
     def save_images(trainer):
-        out_dir = os.path.join(trainer.out, 'epoch_{}'.format(str(trainer.updater.epoch)))
+        out_dir = os.path.join(
+            trainer.out, 'epoch_{}'.format(str(trainer.updater.epoch)))
         if not os.path.exists(out_dir):
             os.mkdir(out_dir)
 
         train_ind = [1, 3, 5, 10, 2, 0, 13, 15, 17]
         x = chainer.Variable(np.asarray(train[train_ind]), volatile='on')
         x1 = model.decode(model.encode(x)[0])
-        save_image(x.data, filename=os.path.join(out_dir,'train'))
-        save_image(x1.data, filename=os.path.join(out_dir, 'train_reconstructed'))
+        save_image(x.data, filename=os.path.join(out_dir, 'train'))
+        save_image(x1.data, filename=os.path.join(
+            out_dir, 'train_reconstructed'))
 
         test_ind = [3, 2, 1, 18, 4, 8, 11, 17, 61]
         x = chainer.Variable(np.asarray(test[test_ind]), volatile='on')
         x1 = model(x)
         x1 = model.decode(model.encode(x)[0])
         save_image(x.data, filename=os.path.join(out_dir, 'test'))
-        save_image(x1.data, filename=os.path.join(out_dir, 'test_reconstructed'))
+        save_image(x1.data, filename=os.path.join(
+            out_dir, 'test_reconstructed'))
 
-        z = chainer.Variable(np.random.normal(0, 1, (9, n_latent)).astype(np.float32))
+        z = chainer.Variable(
+            np.random.normal(0, 1, (9, n_latent)).astype(np.float32))
         x = model.decode(z)
         save_image(x.data, filename=os.path.join(out_dir, 'sampled'))
     trainer.extend(save_images)
