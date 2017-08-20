@@ -34,7 +34,7 @@ def main():
 
     with open(args.output, 'w') as fo:
         for abspath, n_class in result_list:
-            fo.write('{}\t{}\n'.format(abspath, n_class))
+            fo.write('{} {}\n'.format(abspath, n_class))
 
 if __name__ == '__main__':
     main()
