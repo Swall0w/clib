@@ -53,11 +53,11 @@ def main():
     args = arg()
     print('train dataset : ', args.train)
 
-    model = L.Classifier(VGGFineTune())
+    model = L.Classifier(VGGFineTune(args.n_class))
     if args.initmodel:
         print('Load model from ', args.initmodel)
         chainer.serializers.load_npz(args.initmodel, model)
-    if args.gpus >= 0:
+    if args.gpu >= 0:
         chainer.cuda.get_device_from_id(args.gpu).use()
         model.to_gpu()
 
@@ -65,8 +65,8 @@ def main():
     optimizer.setup(model)
     optimizer.add_hook(chainer.optimizer.WeightDecay(5e-4))
 
-    train = datasets.LabeledImageDataset(train)
-    test = datasets.LabeledImageDataset(test)
+    train = datasets.LabeledImageDataset(args.train)
+    test = datasets.LabeledImageDataset(args.test)
     train_iter = chainer.iterators.SerialIterator(train, args.batchsize)
     test_iter = chainer.iterators.SerialIterator(test, args.batchsize,
                                                  repeat=False, shuffle=False)
