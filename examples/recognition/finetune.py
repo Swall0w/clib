@@ -2,6 +2,7 @@ import chainer
 import chainer.functions as F
 import chainer.links as L
 from chainer import training, datasets
+from chainer.training import extensions
 from PIL import Image
 
 import argparse
@@ -24,8 +25,8 @@ class VGGFineTune(chainer.Chain):
 
 def arg():
     parser = argparse.ArgumentParser(description='VGG Finetune')
-    parser.add_argument('train', help='Path to training image-label list file')
-    parser.add_argument('val', help='Path to validation image-label list file')
+    parser.add_argument('--train', help='Path to training image-label list file')
+    parser.add_argument('--test', help='Path to validation image-label list file')
     parser.add_argument('--batchsize', '-B', type=int, default=32,
                         help='Learning minibatch size')
     parser.add_argument('--epoch', '-E', type=int, default=10,
@@ -42,7 +43,7 @@ def arg():
                         help='Output directory')
     parser.add_argument('--root', '-R', default='.',
                         help='Root directory path of image files')
-    parser.add_argument('--val_batchsize', '-b', type=int, default=250,
+    parser.add_argument('--test_batchsize', '-b', type=int, default=250,
                         help='Validation minibatch size')
     parser.add_argument('--n_class', '-c', type=int,
                         help='Number of image class')
@@ -75,8 +76,6 @@ def main():
     trainer = training.Trainer(updater, (args.epoch, 'epoch'), out=args.out)
 
     trainer.extend(extensions.Evaluator(test_iter, model, device=args.gpu))
-    trainer.extend(extensions.ExponentioalShift('lr', 0.5),
-                   trigger=(25, 'epoch'))
     trainer.extend(extensions.snapshot(), trigger=(args.epoch, 'epoch'))
     trainer.extend(extensions.dump_graph('main/loss'))
     trainer.extend(extensions.LogReport())
