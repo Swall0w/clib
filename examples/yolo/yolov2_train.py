@@ -27,12 +27,12 @@ def arg():
                         help='resume the training from snapshot')
     parser.add_argument('--unit', '-u', type=int, default=500,
                         help='number of unit')
-    parser.add_argument('--lr', default=1e-5,
+    parser.add_argument('--lr', default=1e-5, type=float,
                         help='learning rate')
-    parser.add_argument('--momentum', default=0.9,
+    parser.add_argument('--momentum', default=0.9, type=float,
                         help='MomentumSGD')
     parser.add_argument('--weight_decay', '-wd', default=0.0005,
-                        help='WeightDecay')
+                        type=float, help='WeightDecay')
     parser.add_argument('--cls', '-c', type=int, default=20,
                         help='number of classes')
     parser.add_argument('--box', type=int, default=5,
