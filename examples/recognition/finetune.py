@@ -18,7 +18,7 @@ class VGGFineTune(chainer.Chain):
             self.fc9 = L.Linear(None, n_image)
 
     def __call__(self, x):
-        h = self.model(x, layers=['fc7'])['fc7']
+        h = self.vgg(x, layers=['fc7'])['fc7']
         h = F.dropout(F.relu(self.fc8(h)))
         h = self.fc9(h)
         return h
@@ -48,7 +48,7 @@ def arg():
                         help='Validation minibatch size')
     parser.add_argument('--n_class', '-c', type=int,
                         help='Number of image class')
-    parser.add_argument('--resize', type=int,
+    parser.add_argument('--resize', type=int, default=256,
                         help='Number of image class')
     return parser.parse_args()
 
