@@ -15,7 +15,7 @@ from chainer.dataset import dataset_mixin
 def _read_image_as_array(path, dtype, resize):
     f = Image.open(path)
     if resize:
-        f = f.thumbnail((resize[0], resize[1]), Image.ANTIALIAS)
+        f = f.resize((int(resize[0]), int(resize[1])))
     try:
         image = numpy.asarray(f, dtype=dtype)
     finally:
