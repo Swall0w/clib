@@ -1,9 +1,10 @@
 import chainer
 import chainer.functions as F
 import chainer.links as L
-from chainer import training, datasets
+from chainer import training
 from chainer.training import extensions
 from PIL import Image
+from clib.training.dataset import UnifiedLabeledImageDataset
 
 import argparse
 
@@ -47,6 +48,8 @@ def arg():
                         help='Validation minibatch size')
     parser.add_argument('--n_class', '-c', type=int,
                         help='Number of image class')
+    parser.add_argument('--resize', type=int,
+                        help='Number of image class')
     return parser.parse_args()
 
 
@@ -66,8 +69,10 @@ def main():
     optimizer.setup(model)
     optimizer.add_hook(chainer.optimizer.WeightDecay(5e-4))
 
-    train = datasets.LabeledImageDataset(args.train)
-    test = datasets.LabeledImageDataset(args.test)
+    train = UnifiedLabeledImageDataset(pairs=args.train,
+                                       resize=(args.resize, args.resize))
+    test = UnifiedLabeledImageDataset(pairs=args.test,
+                                       resize=(args.resize, args.resize))
     train_iter = chainer.iterators.SerialIterator(train, args.batchsize)
     test_iter = chainer.iterators.SerialIterator(test, args.batchsize,
                                                  repeat=False, shuffle=False)
