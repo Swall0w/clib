@@ -5,7 +5,7 @@ from chainer import initializers
 
 
 class Alex(chainer.Chain):
-    def __init__(self):
+    def __init__(self, n_class=1000):
         super(Alex, self).__init__()
         with self.init_scope():
             self.conv1 = L.Convolution2D(None, 96, 11, stride=4)
@@ -15,7 +15,7 @@ class Alex(chainer.Chain):
             self.conv5 = L.Convolution2D(None, 256, 3, pad=1)
             self.fc6 = L.Linear(None, 4096)
             self.fc7 = L.Linear(None, 4096)
-            self.fc8 = L.Linear(None, 1000)
+            self.fc8 = L.Linear(None, n_class)
 
     def __call__(self, x):
         h = F.max_pooling_2d(F.local_response_normalization(
