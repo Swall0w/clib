@@ -1,12 +1,12 @@
+import argparse
+
 import chainer
 import chainer.functions as F
 import chainer.links as L
 from chainer import training
 from chainer.training import extensions
-from PIL import Image
 from clib.training.dataset import UnifiedLabeledImageDataset
-
-import argparse
+from PIL import Image
 
 
 class VGGFineTune(chainer.Chain):

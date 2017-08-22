@@ -1,12 +1,13 @@
+import argparse
+
 import chainer
 import chainer.functions as F
 import chainer.links as L
 from chainer import training
 from chainer.training import extensions
-from PIL import Image
-from clib.training.dataset import UnifiedLabeledImageDataset
 from clib.links.model.recognition import Alex
-import argparse
+from clib.training.dataset import UnifiedLabeledImageDataset
+from PIL import Image
 
 
 def arg():

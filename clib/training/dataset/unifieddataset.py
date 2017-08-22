@@ -1,15 +1,16 @@
 import os
 
 import numpy
+import six
+from chainer.dataset import dataset_mixin
+
 try:
     from PIL import Image
     available = True
 except ImportError as e:
     available = False
     _import_error = e
-import six
 
-from chainer.dataset import dataset_mixin
 
 
 def to_rgb(image, dtype):
