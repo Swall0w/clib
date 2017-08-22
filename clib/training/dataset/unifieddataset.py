@@ -12,12 +12,23 @@ import six
 from chainer.dataset import dataset_mixin
 
 
+def to_rgb(image, dtype):
+    w, h = image.shape
+    ret = numpy.empty((w, h, 3), dtype)
+    ret[:, :, 0] = image
+    ret[:, :, 1] = image
+    ret[:, :, 2] = image
+    return ret
+
+
 def _read_image_as_array(path, dtype, resize):
     f = Image.open(path)
     if resize:
         f = f.resize((int(resize[0]), int(resize[1])))
     try:
         image = numpy.asarray(f, dtype=dtype)
+        if len(image.shape) == 2:
+            image = to_rgb(image, dtype)
     finally:
         # Only pillow >= 3.0 has 'close' method
         if hasattr(f, 'close'):
