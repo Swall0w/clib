@@ -27,3 +27,8 @@ install:
 
 test: clean-pyc
 	py.test --verbose --color=yes $(TEST_PATH)
+
+reset: clean
+	pip uninstall clib -y
+	python3 setup.py build
+	python3 setup.py install
