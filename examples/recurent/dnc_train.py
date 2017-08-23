@@ -88,3 +88,6 @@ def main():
                 loss = 0.0
                 acc = 0.0
                 acc_bool = []
+
+if __name__ == '__main__':
+    main()

@@ -1,4 +1,4 @@
-from clib.rinks.model.recurrent import dnc
+from clib.links.model.recurrent import dnc
 
-from clib.rinks.model.recurrent.dnc import DNC
+from clib.links.model.recurrent.dnc import DNC
 

@@ -7,18 +7,17 @@ from chainer import optimizers, Chain, Link, Variable
 
 # controller of DNC
 class SimpleLSTM(Chain): 
-
     def __init__(self, d_in, d_hidden, d_out):
-    super(SimpleLSTM, self).__init__(
-            l1 = L.LSTM(d_in, d_hidden),
-            l2 = L.Linear(d_hidden, d_out),
-            )
+        super(SimpleLSTM, self).__init__()
+        with self.init_scope():
+            self.l1 = L.LSTM(d_in, d_hidden)
+            self.l2 = L.Linear(d_hidden, d_out)
 
     def __call__(self, x):
         return self.l2(self.l1(x))
 
-        def reset_state(self):
-            self.l1.reset_state()
+    def reset_state(self):
+        self.l1.reset_state()
 
 
 class DNC(Chain):
