@@ -7,7 +7,7 @@ clib
 [![codecov](https://codecov.io/gh/Swall0w/clib/branch/master/graph/badge.svg)](https://codecov.io/gh/Swall0w/clib)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
-A helpful library for modeling neural networks
+A helpful library for modeling neural networks.
 
 ## Description
 
