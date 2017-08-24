@@ -53,7 +53,11 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
                         raise ValueError(
                             'invalid format at line {} in file {}'.format(
                                 i, pairs_path))
-                    pairs.append((pair[0], int(pair[1])))
+                    if is_path(pair[1]):
+                        label = str(pair[1])
+                    else:
+                        label = int(pair[1])
+                    pairs.append((pair[0], label))
         self._pairs = pairs
         self._dtype = dtype
         self._label_dtype = label_dtype
@@ -63,7 +67,7 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
         return len(self._pairs)
 
     def get_example(self, i):
-        full_path, int_label = self._pairs[i]
+        full_path, label = self._pairs[i]
         image = _read_image_as_array(full_path, self._dtype, self.resize)
 
         if image.ndim == 2:
