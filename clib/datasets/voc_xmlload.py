@@ -10,13 +10,19 @@ def xml_parse(f):
     ground_truths = []
     for obj in xmlroot.iter('object'):
         xmlbox = obj.find('bndbox')
-        ground_truths.append({
+        bbox = {
             'xmin': int(xmlbox.find('xmin').text),
             'ymin': int(xmlbox.find('ymin').text),
             'xmax': int(xmlbox.find('xmax').text),
             'ymax': int(xmlbox.find('ymax').text),
             'label': obj.find('name').text
-        })
+        }
+        try:
+            bbox['value'] = str(xmlbox.find('value').text)
+        except:
+            pass
+        finally:
+            ground_truths.append(bbox)
     return (width, height), ground_truths
     
 def voc_load(file_path):

@@ -32,7 +32,10 @@ def _gen_xml(folder, name, shape, bbox_list):
         xmax.text = str(int(bbox[2]))
         ymax = ET.SubElement(bndbox, 'ymax')
         ymax.text = str(int(bbox[3]))
-    
+        if len(bbox) == 6:
+            value = ET.SubElement(bndbox, 'value')
+            value.text = str(bbox[5])
+
     string = ET.tostring(x_annotation, 'utf-8')
     pretty_string = minidom.parseString(string).toprettyxml(indent='    ')
     return io.StringIO(pretty_string)
@@ -40,11 +43,18 @@ def _gen_xml(folder, name, shape, bbox_list):
 
 class VOCLOAD(unittest.TestCase):
     def test_voc_load(self):
-        self.assertEqual(xml_parse(_gen_xml(folder='001',
-                                           name='2007_21.jpg',
-                                           shape=(281, 500, 3),
-                                           bbox_list=[(104, 78, 375, 183, 'aeroplane')]
-        )),((281, 500), [{'xmin': 104, 'ymin': 78, 'xmax': 375, 'ymax': 183, 'label': 'aeroplane'}]))
+        self.assertEqual(xml_parse(_gen_xml(folder='001', name='2007_21.jpg', shape=(281, 500, 3),
+                                            bbox_list=[(104, 78, 375, 183, 'aeroplane')])),
+                                   ((281, 500), [{'xmin': 104, 'ymin': 78, 'xmax': 375, 'ymax': 183, 'label': 'aeroplane'}]))
 
+        self.assertEqual(xml_parse(_gen_xml(folder='001', name='2007_21.jpg', shape=(281, 500, 3),
+                                            bbox_list=[(104, 78, 375, 183, 'aeroplane'), (22, 44, 66, 88, 'person')])),
+                                   ((281, 500),
+                                    [{'xmin': 104, 'ymin': 78, 'xmax': 375, 'ymax': 183, 'label': 'aeroplane'},
+                                     {'xmin': 22, 'ymin': 44, 'xmax': 66, 'ymax': 88, 'label': 'person'}]))
+
+        self.assertEqual(xml_parse(_gen_xml(folder='002', name='2007_20.jpg', shape=(281, 500, 3),
+                                            bbox_list=[(104, 78, 375, 183, 'aeroplane', 'hoge')])),
+                                  ((281, 500), [{'xmin': 104, 'ymin': 78, 'xmax': 375, 'ymax': 183, 'label': 'aeroplane', 'value': 'hoge'}]))
 if __name__ == '__main__':
     unittest.main()
