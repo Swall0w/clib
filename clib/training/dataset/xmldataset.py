@@ -5,6 +5,7 @@ import six
 from chainer.dataset import dataset_mixin
 from clib.utils.regrex import is_path
 from clib.datasets import voc_load
+from clib.datasets import crop_image_random_transform, uniform
 import random
 
 try:
@@ -13,31 +14,6 @@ try:
 except ImportError as e:
     available = False
     _import_error = e
-
-
-
-def to_rgb(image, dtype):
-    w, h = image.shape
-    ret = numpy.empty((w, h, 3), dtype)
-    ret[:, :, 0] = image
-    ret[:, :, 1] = image
-    ret[:, :, 2] = image
-    return ret
-
-
-def _read_image_as_array(path, dtype, resize=None):
-    f = Image.open(path)
-    if resize:
-        f = f.resize((int(resize[0]), int(resize[1])))
-    try:
-        image = numpy.asarray(f, dtype=dtype)
-        if len(image.shape) == 2:
-            image = to_rgb(image, dtype)
-    finally:
-        # Only pillow >= 3.0 has 'close' method
-        if hasattr(f, 'close'):
-            f.close()
-    return image
 
 
 class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
@@ -79,17 +55,21 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
         else:
             x_step = 0
             y_step = 0
-        image = _read_image_as_array(full_path, self._dtype, self.resize)
-# random step
-        left = bndbox['xmin'] - x_step
-        right = bndbox['xmax'] - x_step
-        top = bndbox['ymin'] - y_step
-        bottom = bndbox['ymax'] - y_step
+#        image = read_image_as_array(full_path, self._dtype, self.resize)
+        bbox = (bndbox['xmin'], bndbox['ymin'], bndbox['xmax'], bndbox['ymax'])
+        step = (x_step, y_step)
+
+        image = crop_image_random_transform(path=full_path, bbox=bbox, step=step,
+                                            blur=True, contrast=True, gamma=True,
+                                            gauss_noise=True, sp_noise=True,
+                                            sharpness=True, saturation=True) 
+        image = uniform(image, (230, 70), self._dtype)
 
 #        if image.ndim == 2:
 #            # image is greyscale
 #            image = image[:, :, numpy.newaxis]
-        image = image[left:right, top:bottom, :]
+#        image = image[left:right, top:bottom, :]
+        print(image.shape)
         int_label = 1
         label = numpy.array(int_label, dtype=self._label_dtype)
         return image.transpose(2, 0, 1), label
