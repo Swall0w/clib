@@ -18,7 +18,7 @@ except ImportError as e:
 
 class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
 
-    def __init__(self, pairs, dtype=numpy.float32,
+    def __init__(self, pairs, label_dict, dtype=numpy.float32,
                  label_dtype=numpy.int32, resize=None, random_step=0):
         _check_pillow_availability()
         if isinstance(pairs, six.string_types):
@@ -41,6 +41,7 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
         self._label_dtype = label_dtype
         self.resize = resize
         self.random_step = random_step
+        self.label_dict = label_dict
 
     def __len__(self):
         return len(self._pairs)
@@ -55,7 +56,6 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
         else:
             x_step = 0
             y_step = 0
-#        image = read_image_as_array(full_path, self._dtype, self.resize)
         bbox = (bndbox['xmin'], bndbox['ymin'], bndbox['xmax'], bndbox['ymax'])
         step = (x_step, y_step)
 
@@ -63,15 +63,10 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
                                             blur=True, contrast=True, gamma=True,
                                             gauss_noise=True, sp_noise=True,
                                             sharpness=True, saturation=True) 
-        image = uniform(image, (230, 70), self._dtype)
+        image = uniform(image, self.resize, self._dtype)
 
-#        if image.ndim == 2:
-#            # image is greyscale
-#            image = image[:, :, numpy.newaxis]
-#        image = image[left:right, top:bottom, :]
-        print(image.shape)
-        int_label = 1
-        label = numpy.array(int_label, dtype=self._label_dtype)
+        label_dict = self.label_dict[bndbox['label']]
+        label = numpy.array(label_dict, dtype=self._label_dtype)
         return image.transpose(2, 0, 1), label
 
 
