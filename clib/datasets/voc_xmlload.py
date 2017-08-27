@@ -15,7 +15,7 @@ def xml_parse(f):
             'ymin': int(xmlbox.find('ymin').text),
             'xmax': int(xmlbox.find('xmax').text),
             'ymax': int(xmlbox.find('ymax').text),
-            'label': obj.find('name').text
+            'label': obj.find('name').text.strip()
         }
         try:
             bbox['value'] = str(xmlbox.find('value').text)
