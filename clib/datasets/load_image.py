@@ -12,9 +12,9 @@ def gamma_table(gamma_r, gamma_g, gamma_b, gain_r=1.0, gain_b=1.0):
     return r_tbl + g_tbl + b_tbl
 
 
-def crop_image_random_transform(path, bbox, step=(0, 0), brightness=False,
-                                blur=False, contrast=False, gamma=False,
-                                gauss_noise=False, sp_noise=False,
+def crop_image_random_transform(path, bbox, dtype, step=(0, 0),
+                                brightness=False, blur=False, contrast=False,
+                                gamma=False, gauss_noise=False, sp_noise=False,
                                 sharpness=False, saturation=False):
     image = Image.open(path)
     image = trans_crop(image, step, bbox)
@@ -83,9 +83,11 @@ def convert_2_array(img, dtype):
 
 
 def to_rgb(image, dtype):
+    image = convert_2_array(image, dtype)
     w, h = image.shape
     ret = numpy.empty((w, h, 3), dtype)
     ret[:, :, 0] = image
     ret[:, :, 1] = image
     ret[:, :, 2] = image
+    ret = Image.fromarray(numpy.uint8(ret))
     return ret

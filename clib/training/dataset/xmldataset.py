@@ -60,8 +60,8 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
         step = (x_step, y_step)
 
         image = crop_image_random_transform(path=full_path, bbox=bbox, step=step,
-                                            blur=True, contrast=True, gamma=True,
-                                            gauss_noise=True, sp_noise=True,
+                                            dtype=self._dtype, blur=True, contrast=True,
+                                            gamma=True, gauss_noise=True, sp_noise=True,
                                             sharpness=True, saturation=True) 
         image = uniform(image, self.resize, self._dtype)
 
