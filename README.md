@@ -17,6 +17,7 @@ In `examples`, there're train and test scripts.
 We use Trainer for training codes.
 
 ## Requirement
+`clib` requires opencv now, so I've been refactoring not to use it, thought I know it's useful.
 
 * numpy
 * chainer
@@ -42,28 +43,36 @@ train and test script are in examples. See them.
 After installation, you only test train code in examples.
 
 ## Features
-
-* Extentions of slack notifications
+### Models
 * SOMs
 * VAE
-* ConvolutinalAutoEncoder
-* AlexNet model
-* Links of convLSTM
+* AlexNet
+* VGG16
 * Darknet19
 * Yolov2
 
+### Else
+* Extentions of slack notifications
+* Links of convLSTM
+
 ## Todo
 
-* Eliminate opencv in clib except train script.
+* Eliminate opencv in train script.
 * Testcode
+* Image data Augmentation class
+* Model Loader Class for test
+* Elastic deformation function
+* Import WGAN from my other repo
+* Import [Seq2Seq](https://github.com/Swall0w/Seq2SeqChatbot) from my repo
 
 ## Future Plan
 ### Image Recognition
 
-* NIN model
-* Densely Connected Convolutional Networks (very similar to RoR?)
-* ResNet model
-* Deep Networks with Stochastic Depth
+* GoogLeNet
+* ResNet
+* NIN
+* DenseNet
+* SqueezeNet
 * FractalNet
 * Residual Networks of Residual Networks: Multilevel Residual Networks (RoR)
 * Aggregated Residual Transformations for Deep Neural Networks
@@ -71,14 +80,16 @@ After installation, you only test train code in examples.
 ### Object Detection
 
 * SSD
-* DSSD model
+* DSSD
 * Feature Pyramid Networks
+* FasterRCNN
 
 ### Image Generative Model
-* pix2pix model
-* Cycle Gan model
-* Disco Gan model
-* LSGan model
+* DC GAN
+* Pix2Pix
+* Cycle GAN
+* Disco GAN
+* LSGAN
 * Pixel Recurrent Neural Networks
 * StackGAN
 * Deep Predictive Coding Networks for Video Prediction and Unsupervised Learning
@@ -86,7 +97,7 @@ After installation, you only test train code in examples.
 
 ### Image Segmentation 
 
-* SigNET model
+* SEGNET model
 * [FlowNet](https://arxiv.org/abs/1504.06852)
 * [FlowNet2](https://github.com/lmb-freiburg/flownet2)
 
@@ -108,7 +119,6 @@ After installation, you only test train code in examples.
 * Hybrid computing using a neural network with dynamic external memory
 * Learning to learn by gradient descent by gradient descent
 * Convolutional Seq2Seq model
-* [Seq2Seq](https://github.com/Swall0w/Seq2SeqChatbot)
 
 ### Features
 
