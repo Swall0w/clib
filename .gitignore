@@ -16,4 +16,4 @@ dist
 docs/_build
 .coverage
 coverage.xml
-
+*.weights
