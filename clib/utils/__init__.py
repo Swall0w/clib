@@ -10,3 +10,4 @@ from clib.utils.overlap import (
                             overlap
                             )
 from clib.utils.visualize_bbox import viz_bbox
+from clib.utils.load import load_class
