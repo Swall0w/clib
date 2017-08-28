@@ -1,13 +1,11 @@
 import numpy as np
 
-import cv2
-
-
+from skimage import color
 # 画像を読み込んで、hue, sat, val空間でランダム変換を加える関数
 
 
-def random_hsv_image(bgr_image, delta_hue, delta_sat_scale, delta_val_scale):
-    hsv_image = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2HSV).astype(np.float32)
+def random_hsv_image(rgb_image, delta_hue, delta_sat_scale, delta_val_scale):
+    hsv_image = color.rgb2hsv(rgb_image).astype(np.float32)
 
     # hue
     hsv_image[:, :, 0] += int(
@@ -24,5 +22,5 @@ def random_hsv_image(bgr_image, delta_hue, delta_sat_scale, delta_val_scale):
     hsv_image[hsv_image < 0] = 0
     hsv_image[hsv_image > 255] = 255
     hsv_image = hsv_image.astype(np.uint8)
-    bgr_image = cv2.cvtColor(hsv_image, cv2.COLOR_HSV2BGR)
-    return bgr_image
+    rgb_image = color.hsv2rgb(hsv_image)
+    return rgb_image

@@ -1,6 +1,5 @@
 import numpy as np
-
-import cv2
+from skimage.transform import resize as imresize
 
 
 def batch(batch):
@@ -9,9 +8,7 @@ def batch(batch):
 
     for index, item in enumerate(batch):
         original_image = item[0]
-        transpose_image = np.transpose(original_image, (1, 2, 0))
-        resized_image = cv2.resize(transpose_image, (format_size, format_size))
-        resized_image = resized_image.transpose(2, 0, 1).astype(np.float32)
+        resized_image = imresize(original_image, (format_size, format_size), mode='reflect')
         format_batch.append((resized_image, batch[index][1]))
     return format_batch
 
@@ -32,6 +29,6 @@ def resize_to_yolo(img):
 
     input_width = int(input_width / 32 + round(input_width % 32 / 32)) * 32
     input_height = int(input_height / 32 + round(input_height % 32 / 32)) * 32
-    img = cv2.resize(img, (input_width, input_height))
+    img = imresize(img, (input_width, input_height), mode='reflect')
 
     return img

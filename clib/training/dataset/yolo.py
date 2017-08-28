@@ -6,7 +6,9 @@ import chainer
 
 import numpy as np
 
-import cv2
+import skimage
+from skimage import io
+from skimage.transform import resize as imresize
 
 
 class YoloPreprocessedDataset(chainer.dataset.DatasetMixin):
@@ -63,12 +65,9 @@ class YoloPreprocessedDataset(chainer.dataset.DatasetMixin):
         crop_size = (resize, resize)
         imagefile = self.image_dir + self.paths[i]
         labelfile = self.label_dir + self.paths[i].split('.')[0] + '.txt'
-        image = cv2.imread(imagefile, cv2.IMREAD_UNCHANGED)
+        image = io.imread(imagefile)
         labels = self.label_reader(labelfile)
 
-        image = cv2.resize(image, crop_size)
-        image = image[:, :, :3]
-        image = np.asarray(image, dtype=np.float32)
-        image *= (1.0 / 255.0)  # Scale to [0, 1]
-        image = image.transpose(2, 0, 1)
+        image = imresize(image, crop_size, mode='reflect')
+        image = skimage.img_as_float(image)
         return image, labels
