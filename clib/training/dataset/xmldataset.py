@@ -58,10 +58,12 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
         bbox = (bndbox['xmin'], bndbox['ymin'], bndbox['xmax'], bndbox['ymax'])
         step = (x_step, y_step)
 
-        image = crop_image_random_transform(path=full_path, bbox=bbox, step=step,
-                                            dtype=self._dtype, blur=True, contrast=True,
-                                            gamma=True, gauss_noise=True, sp_noise=True,
-                                            sharpness=True, saturation=True) 
+        image = crop_image_random_transform(path=full_path, bbox=bbox,
+                                            step=step, dtype=self._dtype,
+                                            blur=True, contrast=True,
+                                            gamma=True, gauss_noise=True,
+                                            sp_noise=True, sharpness=True,
+                                            saturation=True)
         image = uniform(image, self.resize, self._dtype)
 
         label_dict = self.label_dict[bndbox['label']]
