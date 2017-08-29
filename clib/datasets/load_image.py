@@ -4,9 +4,14 @@ from PIL import Image, ImageEnhance, ImageFilter
 
 
 def gamma_table(gamma_r, gamma_g, gamma_b, gain_r=1.0, gain_b=1.0):
-    r_tbl = [min(255, int((x / 255.) ** (1. / gamma_r) * gamma_r * 255.)) for x in range(256)]
-    g_tbl = [min(255, int((x / 255.) ** (1. / gamma_g) * gamma_g * 255.)) for x in range(256)]
-    b_tbl = [min(255, int((x / 255.) ** (1. / gamma_b) * gamma_b * 255.)) for x in range(256)]
+    def _gen_table(gamma):
+        def _calc_min(x, gamma):
+            return  min(255, int((x / 255.) ** (1. / gamma) * gamma * 255.))
+        table = [ _calc_min(x, gamma) for x in range(256)]
+        return table
+    r_tbl = _gen_table(gamma_r)
+    g_tbl = _gen_table(gamma_g)
+    b_tbl = _gen_table(gamma_b)
     return r_tbl + g_tbl + b_tbl
 
 
