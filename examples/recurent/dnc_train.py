@@ -1,10 +1,9 @@
-from clib.links.model.recurrent import DNC
-
-import numpy as np
 import chainer
+import numpy as np
 from chainer import functions as F
 from chainer import links as L
-from chainer import optimizers, Chain, Link, Variable
+from chainer import Chain, Link, Variable, optimizers
+from clib.links.model.recurrent import DNC
 
 
 def onehot(x, n):

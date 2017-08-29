@@ -1,5 +1,7 @@
-from clib.utils import load_class
 import unittest
+
+from clib.utils import load_class
+
 
 class LoadClassTest(unittest.TestCase):
     def setUp(self):

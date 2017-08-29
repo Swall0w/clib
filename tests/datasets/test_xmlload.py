@@ -1,9 +1,10 @@
-import unittest
-from clib.datasets import xml_parse, voc_load
-import xml.etree.ElementTree as ET
-import xml.dom.minidom as minidom
 import io
 import os
+import unittest
+import xml.dom.minidom as minidom
+import xml.etree.ElementTree as ET
+
+from clib.datasets import voc_load, xml_parse
 
 
 def _gen_xml(folder, name, shape, bbox_list):

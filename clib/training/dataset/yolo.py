@@ -2,10 +2,9 @@
 import glob
 import os
 import random
+
 import chainer
-
 import numpy as np
-
 import skimage
 from skimage import io
 from skimage.transform import resize as imresize

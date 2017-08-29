@@ -1,5 +1,7 @@
 import unittest
+
 from clib.utils.regrex import is_path
+
 
 class IsPath(unittest.TestCase):
     def test_is_path(self):

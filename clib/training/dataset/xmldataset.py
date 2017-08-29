@@ -1,12 +1,11 @@
 import os
+import random
 
 import numpy
 import six
 from chainer.dataset import dataset_mixin
+from clib.datasets import crop_image_random_transform, uniform, voc_load
 from clib.utils.regrex import is_path
-from clib.datasets import voc_load
-from clib.datasets import crop_image_random_transform, uniform
-import random
 
 try:
     from PIL import Image

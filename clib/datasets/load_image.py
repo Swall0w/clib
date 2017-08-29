@@ -1,6 +1,7 @@
-from PIL import Image, ImageEnhance, ImageFilter
 import numpy
 from clib.utils import randombool
+from PIL import Image, ImageEnhance, ImageFilter
+
 
 def gamma_table(gamma_r, gamma_g, gamma_b, gain_r=1.0, gain_b=1.0):
     r_tbl = [min(255, int((x / 255.) ** (1. / gamma_r) * gamma_r * 255.)) for x in range(256)]

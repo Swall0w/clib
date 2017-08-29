@@ -1,6 +1,6 @@
 import chainer
-import chainer.links as L
 import chainer.functions as F
+import chainer.links as L
 
 
 class VGGNet(chainer.Chain):
