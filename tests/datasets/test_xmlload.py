@@ -46,20 +46,36 @@ def _gen_xml(folder, name, shape, bbox_list):
 class VOCLOAD(unittest.TestCase):
     def setUp(self):
         self.filename = os.path.abspath('./tests/data/0.xml')
+
     def test_voc_load(self):
-        self.assertEqual(xml_parse(_gen_xml(folder='001', name='2007_21.jpg', shape=(281, 500, 3),
-                                            bbox_list=[(104, 78, 375, 183, 'aeroplane')])),
-                                   ((281, 500), [{'xmin': 104, 'ymin': 78, 'xmax': 375, 'ymax': 183, 'label': 'aeroplane'}]))
+        self.assertEqual(
+            xml_parse(_gen_xml(folder='001', name='2007_21.jpg',
+                               shape=(281, 500, 3),
+                               bbox_list=[(104, 78, 375, 183, 'aeroplane')])
+                      ), ((281, 500), [{'xmin': 104, 'ymin': 78, 'xmax': 375,
+                                        'ymax': 183, 'label': 'aeroplane'}]))
 
-        self.assertEqual(xml_parse(_gen_xml(folder='001', name='2007_21.jpg', shape=(281, 500, 3),
-                                            bbox_list=[(104, 78, 375, 183, 'aeroplane'), (22, 44, 66, 88, 'person')])),
-                                   ((281, 500),
-                                    [{'xmin': 104, 'ymin': 78, 'xmax': 375, 'ymax': 183, 'label': 'aeroplane'},
-                                     {'xmin': 22, 'ymin': 44, 'xmax': 66, 'ymax': 88, 'label': 'person'}]))
+        self.assertEqual(
+            xml_parse(_gen_xml(folder='001', name='2007_21.jpg',
+                               shape=(281, 500, 3),
+                               bbox_list=[(104, 78, 375, 183, 'aeroplane'),
+                                          (22, 44, 66, 88, 'person')])
+                      ), ((281, 500), [{'xmin': 104, 'ymin': 78, 'xmax': 375,
+                                        'ymax': 183, 'label': 'aeroplane'},
+                                       {'xmin': 22, 'ymin': 44, 'xmax': 66,
+                                        'ymax': 88, 'label': 'person'}]))
 
-        self.assertEqual(xml_parse(_gen_xml(folder='002', name='2007_20.jpg', shape=(281, 500, 3),
-                                            bbox_list=[(104, 78, 375, 183, 'aeroplane', 'hoge')])),
-                                  ((281, 500), [{'xmin': 104, 'ymin': 78, 'xmax': 375, 'ymax': 183, 'label': 'aeroplane', 'value': 'hoge'}]))
-        self.assertEqual(voc_load(self.filename), ((375, 500), [{'xmin': 156, 'ymin': 89, 'xmax': 344, 'ymax': 279, 'label': 'tvmonitor'}]))
+        self.assertEqual(
+            xml_parse(_gen_xml(folder='002', name='2007_20.jpg',
+                               shape=(281, 500, 3),
+                               bbox_list=[
+                                (104, 78, 375, 183, 'aeroplane', 'hoge')])
+                      ), ((281, 500), [{'xmin': 104, 'ymin': 78, 'xmax': 375,
+                                        'ymax': 183, 'label': 'aeroplane',
+                                        'value': 'hoge'}]))
+        self.assertEqual(voc_load(self.filename),
+                         ((375, 500), [{'xmin': 156, 'ymin': 89, 'xmax': 344,
+                                        'ymax': 279, 'label': 'tvmonitor'}]))
+
 if __name__ == '__main__':
     unittest.main()
