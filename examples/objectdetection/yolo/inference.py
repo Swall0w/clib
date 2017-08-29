@@ -116,7 +116,7 @@ if __name__ == "__main__":
     orig_img = Image.open(args.input)
 
     # Convert RGB to BGR
-    cv_img = np.array(orig_img)[:,:,::-1].copy()
+    cv_img = np.array(orig_img)[:, :, ::-1].copy()
 
     predictor = Predictor(
         weight_file=args.model, data_label=args.names,

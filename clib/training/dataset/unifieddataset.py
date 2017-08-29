@@ -12,7 +12,6 @@ except ImportError as e:
     _import_error = e
 
 
-
 def to_rgb(image, dtype):
     w, h = image.shape
     ret = numpy.empty((w, h, 3), dtype)

@@ -12,8 +12,10 @@ from PIL import Image
 
 def arg():
     parser = argparse.ArgumentParser(description='VGG Finetune')
-    parser.add_argument('--train', help='Path to training image-label list file')
-    parser.add_argument('--test', help='Path to validation image-label list file')
+    parser.add_argument('--train',
+                        help='Path to training image-label list file')
+    parser.add_argument('--test',
+                        help='Path to validation image-label list file')
     parser.add_argument('--batchsize', '-B', type=int, default=32,
                         help='Learning minibatch size')
     parser.add_argument('--epoch', '-E', type=int, default=10,
@@ -58,7 +60,7 @@ def main():
     train = UnifiedLabeledImageDataset(pairs=args.train,
                                        resize=(args.resize, args.resize))
     test = UnifiedLabeledImageDataset(pairs=args.test,
-                                       resize=(args.resize, args.resize))
+                                      resize=(args.resize, args.resize))
     train_iter = chainer.iterators.SerialIterator(train, args.batchsize)
     test_iter = chainer.iterators.SerialIterator(test, args.batchsize,
                                                  repeat=False, shuffle=False)

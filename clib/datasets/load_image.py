@@ -4,9 +4,15 @@ from PIL import Image, ImageEnhance, ImageFilter
 
 
 def gamma_table(gamma_r, gamma_g, gamma_b, gain_r=1.0, gain_b=1.0):
-    r_tbl = [min(255, int((x / 255.) ** (1. / gamma_r) * gamma_r * 255.)) for x in range(256)]
-    g_tbl = [min(255, int((x / 255.) ** (1. / gamma_g) * gamma_g * 255.)) for x in range(256)]
-    b_tbl = [min(255, int((x / 255.) ** (1. / gamma_b) * gamma_b * 255.)) for x in range(256)]
+    def _gen_table(gamma):
+        def _calc_min(x, gamma):
+            return min(255, int((x / 255.) ** (1. / gamma) * gamma * 255.))
+
+        table = [_calc_min(x, gamma) for x in range(256)]
+        return table
+    r_tbl = _gen_table(gamma_r)
+    g_tbl = _gen_table(gamma_g)
+    b_tbl = _gen_table(gamma_b)
     return r_tbl + g_tbl + b_tbl
 
 
@@ -62,6 +68,7 @@ def crop_image_random_transform(path, bbox, dtype, step=(0, 0),
 
     return image
 
+
 def trans_crop(image, step, bbox):
     left = bbox[0] - step[0]
     top = bbox[1] - step[1]
@@ -69,6 +76,7 @@ def trans_crop(image, step, bbox):
     bottom = bbox[3] - step[1]
     image = image.crop((left, top, right, bottom))
     return image
+
 
 def uniform(image, resize, dtype):
     image = image.resize((int(resize[0]), int(resize[1])), Image.LANCZOS)
