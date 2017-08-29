@@ -4,10 +4,10 @@ from setuptools import find_packages, setup
 
 setup(
     name="clib",
-    version="0.1.7",
+    version="0.1.8",
     description="Neural Network module with chainer",
     url="https://github.com/Swall0w/clib",
-    install_requires=['numpy', 'chainer'],
+    install_requires=['numpy', 'chainer', 'skimage'],
     license=license,
     packages=find_packages(exclude=('tests')),
     test_suite='tests',
