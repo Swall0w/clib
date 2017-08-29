@@ -7,7 +7,7 @@ setup(
     version="0.1.8",
     description="Neural Network module with chainer",
     url="https://github.com/Swall0w/clib",
-    install_requires=['numpy', 'chainer', 'skimage'],
+    install_requires=['numpy', 'chainer', 'scikit-image'],
     license=license,
     packages=find_packages(exclude=('tests')),
     test_suite='tests',

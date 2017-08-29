@@ -17,11 +17,10 @@ In `examples`, there're train and test scripts.
 We use Trainer for training codes.
 
 ## Requirement
-`clib` requires opencv now, so I've been refactoring not to use it, thought I know it's useful.
 
 * numpy
 * chainer
-* cv2
+* scikit-image
 * python3
 * PIL
 
@@ -57,7 +56,6 @@ After installation, you only test train code in examples.
 
 ## Todo
 
-* Eliminate opencv in train script.
 * Testcode
 * Image data Augmentation class
 * Model Loader Class for test
