@@ -1,11 +1,10 @@
-import argparse
-
 import chainer
 import chainer.functions as F
 import chainer.links as L
 from chainer import training
 from chainer.training import extensions
 from clib.training.dataset import UnifiedLabeledImageDataset
+from clib.utils import arg_recognition
 from PIL import Image
 
 
@@ -24,40 +23,8 @@ class VGGFineTune(chainer.Chain):
         return h
 
 
-def arg():
-    parser = argparse.ArgumentParser(description='VGG Finetune')
-    parser.add_argument('--train',
-                        help='Path to training image-label list file')
-    parser.add_argument('--test',
-                        help='Path to validation image-label list file')
-    parser.add_argument('--batchsize', '-B', type=int, default=32,
-                        help='Learning minibatch size')
-    parser.add_argument('--epoch', '-E', type=int, default=10,
-                        help='Number of epochs to train')
-    parser.add_argument('--gpu', '-g', type=int, default=-1,
-                        help='GPU ID (negative value indicates CPU')
-    parser.add_argument('--initmodel',
-                        help='Initialize the model from given file')
-    parser.add_argument('--loaderjob', '-j', type=int,
-                        help='Number of parallel data loading processes')
-    parser.add_argument('--resume', '-r', default='',
-                        help='Initialize the trainer from given file')
-    parser.add_argument('--out', '-o', default='result',
-                        help='Output directory')
-    parser.add_argument('--root', '-R', default='.',
-                        help='Root directory path of image files')
-    parser.add_argument('--test_batchsize', '-b', type=int, default=250,
-                        help='Validation minibatch size')
-    parser.add_argument('--n_class', '-c', type=int,
-                        help='Number of image class')
-    parser.add_argument('--resize', type=int, default=256,
-                        help='Number of image class')
-    return parser.parse_args()
-
-
 def main():
-    args = arg()
-    print('train dataset : ', args.train)
+    args = arg_recognition()
 
     model = L.Classifier(VGGFineTune(args.n_class))
     if args.initmodel:
