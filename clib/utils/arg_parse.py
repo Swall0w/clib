@@ -7,9 +7,9 @@ def arg_recognition():
                         help='Path to training image-label list file')
     parser.add_argument('--test',
                         help='Path to validation image-label list file')
-    parser.add_argument('--batchsize', '-B', type=int, default=32,
+    parser.add_argument('--batchsize', '-b', type=int, default=32,
                         help='Learning minibatch size')
-    parser.add_argument('--epoch', '-E', type=int, default=10,
+    parser.add_argument('--epoch', '-e', type=int, default=10,
                         help='Number of epochs to train')
     parser.add_argument('--gpu', '-g', type=int, default=-1,
                         help='GPU ID (negative value indicates CPU')
@@ -23,7 +23,7 @@ def arg_recognition():
                         help='Output directory')
     parser.add_argument('--root', '-R', default='.',
                         help='Root directory path of image files')
-    parser.add_argument('--test_batchsize', '-b', type=int, default=250,
+    parser.add_argument('--test_batchsize', '-B', type=int, default=250,
                         help='Validation minibatch size')
     parser.add_argument('--n_class', '-c', type=int,
                         help='Number of image class')
