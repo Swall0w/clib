@@ -5,11 +5,11 @@ import numpy as np
 
 
 class ImageInference(object):
-    def __init__(self):
+    def __init__(self, model, weights, labelfile, gpu=0):
+        self.model = model
         self.weights = weights
         self.labelfile = labelfile
         self.gpu = gpu
-        self.model = model
 
         self.label = load_class(self.labelfile)
         serializers.load_npz(self.weights, self.model)
