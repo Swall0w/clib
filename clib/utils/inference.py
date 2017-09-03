@@ -5,7 +5,7 @@ import numpy as np
 
 
 class ImageInference(object):
-    def __init__(self)
+    def __init__(self):
         self.weights = weights
         self.labelfile = labelfile
         self.gpu = gpu
