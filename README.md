@@ -15,6 +15,7 @@ A helpful library for modeling neural networks.
 In `clib`, there're functions and classes implemented with chainer.
 In `examples`, there're train and test scripts.
 We use Trainer for training codes.
+We use RGB numpy for image, not BGR numpy.
 
 ## Requirement
 
@@ -53,12 +54,12 @@ After installation, you only test train code in examples.
 ### Else
 * Extentions of slack notifications
 * Links of convLSTM
+* Inference Basic Class
 
 ## Todo
 
 * Testcode
 * Image data Augmentation class
-* Model Loader Class for test
 * Elastic deformation function
 * Import WGAN from my other repo
 * Import [Seq2Seq](https://github.com/Swall0w/Seq2SeqChatbot) from my repo
