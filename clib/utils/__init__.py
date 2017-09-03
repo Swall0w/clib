@@ -13,3 +13,4 @@ from clib.utils.visualize_bbox import viz_bbox
 from clib.utils.load import load_class
 from clib.utils.boolian import randombool
 from clib.utils.arg_parse import arg_recognition
+from clib.utils.inference import ImageInference
