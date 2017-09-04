@@ -8,5 +8,7 @@ class ElasticTransformTest(unittest.TestCase):
         self.rgbimg = data.astronaut()
 
     def test_elastic_transform(self):
-        self.assertEqual(elastic_transform(self.grayimg).shape, (303, 384))
-        self.assertEqual(elastic_transform(self.rgbimg).shape, (512, 512, 3))
+        self.assertEqual(elastic_transform(self.grayimg).shape,
+                         (303, 384))
+        self.assertEqual(elastic_transform(self.rgbimg).shape,
+                         (512, 512, 3))
