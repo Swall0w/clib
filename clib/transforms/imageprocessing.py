@@ -11,16 +11,19 @@ def crop():
 
 def _elastic_transform_2d(img, sigma=6, alpha=36, random=False):
 
+    def _calc_delta(shape, alpha, sigma):
+        return alpha * gaussian_filter((random.rand(*shape) * 2 - 1),
+                                       sigma, mode='constant', cval=0)
+
     assert img.ndim == 2
 
     if random is False:
         random = np.random.RandomState(None)
 
     shape = img.shape
-    dx = alpha * gaussian_filter((random.rand(*shape) * 2 - 1), sigma,
-                                 mode='constant', cval=0)
-    dy = alpha * gaussian_filter((random.rand(*shape) * 2 - 1), sigma,
-                                 mode='constant', cval=0)
+    dx = _calc_delta(shape, alpha, sigma)
+    dy = _calc_delta(shape, alpha, sigma)
+
     x, y = np.meshgrid(np.arange(shape[0]), np.arange(shape[1]), indexing='ij')
     indices = np.reshape(x+dx, (-1, 1)), np.reshape(y + dy, (-1, 1))
 

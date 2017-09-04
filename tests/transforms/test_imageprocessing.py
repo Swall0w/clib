@@ -2,6 +2,7 @@ import unittest
 from clib.transforms import elastic_transform
 from skimage import io, data
 
+
 class ElasticTransformTest(unittest.TestCase):
     def setUp(self):
         self.grayimg = data.coins()
