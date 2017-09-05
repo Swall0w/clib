@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageEnhance
 import numpy as np
 import skimage
 from scipy.ndimage.interpolation import map_coordinates
@@ -52,3 +52,7 @@ def add_noise(img, sigma=0.155):
 
 def add_salt_and_pepper_noise(img, salt_vs_pepper=0.5):
     return random_noise(img, mode='s&p', salt_vs_pepper=salt_vs_pepper)
+
+def contrast(img, value=1.0):
+    img = ImageEnhance.Contrast(Image.fromarray(np.uint8(img))).enhance(value)
+    return np.asarray(img)
