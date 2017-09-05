@@ -62,3 +62,13 @@ def contrast(img, value=1.0):
 def brightness(img, value=1.0):
     img = ImageEnhance.Brightness(Image.fromarray(np.uint8(img))).enhance(value)
     return np.asarray(img)
+
+
+def saturation(img, value=1.0):
+    img = ImageEnhance.Color(Image.fromarray(np.uint8(img))).enhance(value)
+    return np.asarray(img)
+
+
+def sharpness(img, value=1.0):
+    img = ImageEnhance.Sharpness(Image.fromarray(np.uint8(img))).enhance(value)
+    return np.asarray(img)

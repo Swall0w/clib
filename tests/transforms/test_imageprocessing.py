@@ -3,7 +3,8 @@ from clib.transforms import (elastic_transform,
                              gaussian_blur,
                              add_noise,
                              add_salt_and_pepper_noise,
-                             contrast, brightness)
+                             contrast, brightness,
+                             saturation, sharpness)
 from skimage import io, data
 
 
@@ -76,4 +77,28 @@ class BrightnessTest(unittest.TestCase):
         self.assertEqual(brightness(self.grayimg).shape,
                          (303, 384))
         self.assertEqual(brightness(self.rgbimg).shape,
+                         (512, 512, 3))
+
+
+class SaturationTest(unittest.TestCase):
+    def setUp(self):
+        self.grayimg = data.coins()
+        self.rgbimg = data.astronaut()
+
+    def test_contrast(self):
+        self.assertEqual(saturation(self.grayimg).shape,
+                         (303, 384))
+        self.assertEqual(saturation(self.rgbimg).shape,
+                         (512, 512, 3))
+
+
+class SharpnessTest(unittest.TestCase):
+    def setUp(self):
+        self.grayimg = data.coins()
+        self.rgbimg = data.astronaut()
+
+    def test_contrast(self):
+        self.assertEqual(sharpness(self.grayimg).shape,
+                         (303, 384))
+        self.assertEqual(sharpness(self.rgbimg).shape,
                          (512, 512, 3))
