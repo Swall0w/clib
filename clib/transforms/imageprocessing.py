@@ -3,7 +3,7 @@ import numpy as np
 import skimage
 from scipy.ndimage.interpolation import map_coordinates
 from scipy.ndimage.filters import gaussian_filter
-from skimage import color
+from skimage import color, exposure
 from skimage.util import random_noise
 
 
@@ -72,3 +72,8 @@ def saturation(img, value=1.0):
 def sharpness(img, value=1.0):
     img = ImageEnhance.Sharpness(Image.fromarray(np.uint8(img))).enhance(value)
     return np.asarray(img)
+
+
+def gamma_adjust(img, gamma=1., gain=1.):
+    gamma_corrected = exposure.adjust_gamma(img, gamma, gain)
+    return gamma_corrected

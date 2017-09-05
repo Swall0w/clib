@@ -4,5 +4,6 @@ from clib.transforms.imageprocessing import (elastic_transform,
                                              add_noise,
                                              add_salt_and_pepper_noise,
                                              contrast, brightness,
-                                             saturation, sharpness
+                                             saturation, sharpness,
+                                             gamma_adjust
                                              )

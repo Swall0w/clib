@@ -4,7 +4,8 @@ from clib.transforms import (elastic_transform,
                              add_noise,
                              add_salt_and_pepper_noise,
                              contrast, brightness,
-                             saturation, sharpness)
+                             saturation, sharpness,
+                             gamma_adjust)
 from skimage import io, data
 
 
@@ -73,7 +74,7 @@ class BrightnessTest(unittest.TestCase):
         self.grayimg = data.coins()
         self.rgbimg = data.astronaut()
 
-    def test_contrast(self):
+    def test_brightness(self):
         self.assertEqual(brightness(self.grayimg).shape,
                          (303, 384))
         self.assertEqual(brightness(self.rgbimg).shape,
@@ -85,7 +86,7 @@ class SaturationTest(unittest.TestCase):
         self.grayimg = data.coins()
         self.rgbimg = data.astronaut()
 
-    def test_contrast(self):
+    def test_saturation(self):
         self.assertEqual(saturation(self.grayimg).shape,
                          (303, 384))
         self.assertEqual(saturation(self.rgbimg).shape,
@@ -97,8 +98,20 @@ class SharpnessTest(unittest.TestCase):
         self.grayimg = data.coins()
         self.rgbimg = data.astronaut()
 
-    def test_contrast(self):
+    def test_sharpness(self):
         self.assertEqual(sharpness(self.grayimg).shape,
                          (303, 384))
         self.assertEqual(sharpness(self.rgbimg).shape,
+                         (512, 512, 3))
+
+
+class GammaAdjustTest(unittest.TestCase):
+    def setUp(self):
+        self.grayimg = data.coins()
+        self.rgbimg = data.astronaut()
+
+    def test_gamma_adjust(self):
+        self.assertEqual(gamma_adjust(self.grayimg).shape,
+                         (303, 384))
+        self.assertEqual(gamma_adjust(self.rgbimg).shape,
                          (512, 512, 3))
