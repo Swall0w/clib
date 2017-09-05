@@ -4,6 +4,7 @@ import skimage
 from scipy.ndimage.interpolation import map_coordinates
 from scipy.ndimage.filters import gaussian_filter
 from skimage import color
+from skimage.util import random_noise
 
 
 def _elastic_transform_2d(img, sigma=6, alpha=36, random=False):
@@ -43,3 +44,6 @@ def elastic_transform(img, sigma=6, alpha=36, random=False):
 def gaussian_blur(img, sigma=1, multichannel=True):
     return skimage.filters.gaussian(image=img, sigma=sigma,
                                     multichannel=multichannel)
+
+def add_noise(img, sigma=0.155):
+    return random_noise(img, var=sigma**2)
