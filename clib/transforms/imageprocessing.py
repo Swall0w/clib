@@ -45,5 +45,10 @@ def gaussian_blur(img, sigma=1, multichannel=True):
     return skimage.filters.gaussian(image=img, sigma=sigma,
                                     multichannel=multichannel)
 
+
 def add_noise(img, sigma=0.155):
     return random_noise(img, var=sigma**2)
+
+
+def add_salt_and_pepper_noise(img, salt_vs_pepper=0.5):
+    return random_noise(img, mode='s&p', salt_vs_pepper=salt_vs_pepper)
