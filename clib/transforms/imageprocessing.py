@@ -1,12 +1,9 @@
 from PIL import Image
 import numpy as np
+import skimage
 from scipy.ndimage.interpolation import map_coordinates
 from scipy.ndimage.filters import gaussian_filter
 from skimage import color
-
-
-def crop():
-    pass
 
 
 def _elastic_transform_2d(img, sigma=6, alpha=36, random=False):
@@ -42,3 +39,7 @@ def elastic_transform(img, sigma=6, alpha=36, random=False):
         pass
 
     return ret
+
+def gaussian_blur(img, sigma=1, multichannel=True):
+    return skimage.filters.gaussian(image=img, sigma=sigma,
+                                    multichannel=multichannel)
