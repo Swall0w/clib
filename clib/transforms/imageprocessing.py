@@ -1,12 +1,10 @@
-from PIL import Image
+from PIL import Image, ImageEnhance
 import numpy as np
+import skimage
 from scipy.ndimage.interpolation import map_coordinates
 from scipy.ndimage.filters import gaussian_filter
-from skimage import color
-
-
-def crop():
-    pass
+from skimage import color, exposure
+from skimage.util import random_noise
 
 
 def _elastic_transform_2d(img, sigma=6, alpha=36, random=False):
@@ -42,3 +40,44 @@ def elastic_transform(img, sigma=6, alpha=36, random=False):
         pass
 
     return ret
+
+
+def gaussian_blur(img, sigma=1, multichannel=True):
+    return skimage.filters.gaussian(image=img, sigma=sigma,
+                                    multichannel=multichannel)
+
+
+def add_noise(img, sigma=0.155):
+    return random_noise(img, var=sigma**2)
+
+
+def add_salt_and_pepper_noise(img, salt_vs_pepper=0.5):
+    return random_noise(img, mode='s&p', salt_vs_pepper=salt_vs_pepper)
+
+
+def contrast(img, value=1.0):
+    img = ImageEnhance.Contrast(Image.fromarray(
+        np.uint8(img))).enhance(value)
+    return np.asarray(img)
+
+
+def brightness(img, value=1.0):
+    img = ImageEnhance.Brightness(
+        Image.fromarray(np.uint8(img))).enhance(value)
+    return np.asarray(img)
+
+
+def saturation(img, value=1.0):
+    img = ImageEnhance.Color(Image.fromarray(np.uint8(img))).enhance(value)
+    return np.asarray(img)
+
+
+def sharpness(img, value=1.0):
+    img = Image.fromarray(np.uint8(img))
+    img = ImageEnhance.Sharpness(img).enhance(value)
+    return np.asarray(img)
+
+
+def gamma_adjust(img, gamma=1., gain=1.):
+    gamma_corrected = exposure.adjust_gamma(img, gamma, gain)
+    return gamma_corrected
