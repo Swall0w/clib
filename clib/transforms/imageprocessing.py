@@ -41,6 +41,7 @@ def elastic_transform(img, sigma=6, alpha=36, random=False):
 
     return ret
 
+
 def gaussian_blur(img, sigma=1, multichannel=True):
     return skimage.filters.gaussian(image=img, sigma=sigma,
                                     multichannel=multichannel)
@@ -55,12 +56,14 @@ def add_salt_and_pepper_noise(img, salt_vs_pepper=0.5):
 
 
 def contrast(img, value=1.0):
-    img = ImageEnhance.Contrast(Image.fromarray(np.uint8(img))).enhance(value)
+    img = ImageEnhance.Contrast(Image.fromarray(
+        np.uint8(img))).enhance(value)
     return np.asarray(img)
 
 
 def brightness(img, value=1.0):
-    img = ImageEnhance.Brightness(Image.fromarray(np.uint8(img))).enhance(value)
+    img = ImageEnhance.Brightness(
+        Image.fromarray(np.uint8(img))).enhance(value)
     return np.asarray(img)
 
 
@@ -70,7 +73,8 @@ def saturation(img, value=1.0):
 
 
 def sharpness(img, value=1.0):
-    img = ImageEnhance.Sharpness(Image.fromarray(np.uint8(img))).enhance(value)
+    img = Image.fromarray(np.uint8(img))
+    img = ImageEnhance.Sharpness(img).enhance(value)
     return np.asarray(img)
 
 
