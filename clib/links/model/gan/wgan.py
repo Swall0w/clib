@@ -5,7 +5,7 @@ import chainer.links as L
 
 class WGANGenerator(chainer.Chain):
     def __init__(self):
-        super(Generator, self).__init__(
+        super(WGANGenerator, self).__init__(
             fc1=L.Linear(None, 800),
             fc2=L.Linear(None, 28*28)
         )
@@ -18,7 +18,7 @@ class WGANGenerator(chainer.Chain):
 
 class WGANCritic(chainer.Chain):
     def __init__(self):
-        super(Critic, self).__init__(
+        super(WGANCritic, self).__init__(
             fc1=L.Linear(None, 800),
             fc2=L.Linear(None, 28*28)
         )
