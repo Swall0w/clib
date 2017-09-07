@@ -3,3 +3,4 @@ from clib.links.model import superresolution
 from clib.links.model import vae
 from clib.links.model import yolo
 from clib.links.model import recurrent
+from clib.links.model import gan
