@@ -3,17 +3,17 @@ from skimage import  data, io
 from clib.transforms import jitter_position, _check_position
 
 
-#class JitterTest(unittest.TestCase):
-#    def setUp(self):
-#        self.grayimg = data.coins()
-#        self.rgbimg = data.astronaut()
-#        self.bbox = (20, 40, 60, 80)
-#        self.grayimg_size = (303, 384)
-#        self.rgbimg_size = (512, 512)
-#
-#    def test_jitter_position(self):
-#        self.assertEqual(jitter_position(self.bbox, self.grayimg,),
-#                         (3, 3))
+class JitterTest(unittest.TestCase):
+    def setUp(self):
+        self.grayimg = data.coins()
+        self.rgbimg = data.astronaut()
+        self.bbox = (20, 40, 60, 80)
+        self.grayimg_size = (303, 384)
+        self.rgbimg_size = (512, 512)
+
+    def test_jitter_position(self):
+        self.assertEqual(jitter_position(self.bbox, self.grayimg.shape),
+                         (20, 40, 60, 80))
 
 class CheckPositionTest(unittest.TestCase):
     def setUp(self):

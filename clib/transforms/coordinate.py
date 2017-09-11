@@ -1,9 +1,8 @@
 import random
 
 
-def jitter_position(bbox, size, step=(0, 0), random=False):
-    def _new_position(value, step):
-        pass
+def jitter_position(bbox, size, step=(0, 0)):
+
     while True:
         x_min_step = random.randint(-step[0], step[0])
         y_min_step = random.randint(-step[1], step[1])
@@ -14,9 +13,14 @@ def jitter_position(bbox, size, step=(0, 0), random=False):
         new_y_min = bbox[1] - y_min_step
         new_x_max = bbox[2] - x_max_step
         new_y_max = bbox[3] - y_max_step
+
+        new_width =  new_x_max - new_x_min
+        new_height =  new_y_max - new_y_min
+
         new_bbox = (new_x_min, new_y_min, new_x_max, new_y_max)
 
-        if _check_position(new_bbox):
+        if (_check_position(new_bbox) and (new_width <= size[0])
+            and (new_height <= size[1])):
             break
     return new_bbox
 
