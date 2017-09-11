@@ -9,17 +9,51 @@ from PIL import Image, ImageEnhance, ImageFilter
 
 
 class ImageAugmentation():
-    def __init__(self, path):
-        self.path = path
+    def __init__(self):
         self.imread = io.imread
-        self.noise = gaussian_blur
 
     def read(self, imgpath):
         return self.imread(imgpath)
 
-    def noise(self, img):
-        return self.noise(img)
+    def blur(self, img, israndom=False):
+        if not israndom:
+            img = gaussian_blur(img)
+        return img
 
+    def noise(self, img, israndom=False):
+        if not israndom:
+            img = add_noise(img)
+        return img
+
+    def sp_noise(self, img, israndom=False):
+        if not israndom:
+            img = add_salt_and_pepper_noise(img)
+        return img
+
+    def contrast(self, img, israndom=False):
+        if not israndom:
+            img = contrast(img)
+        return img
+
+    def brightness(self, img, israndom=False):
+        if not israndom:
+            img = brightness(img)
+        return img
+
+    def saturation(self, img, israndom=False):
+        if not israndom:
+            img = saturation(img)
+        return img
+
+    def sharpness(self, img, israndom=False):
+        if not israndom:
+            img = sharpness(img)
+        return img
+
+    def gamma_adjust(self, img, israndom=False):
+        if not israndom:
+            img = gamma_adjust(img)
+        return img
 
 def gamma_table(gamma_r, gamma_g, gamma_b, gain_r=1.0, gain_b=1.0):
     def _gen_table(gamma):
