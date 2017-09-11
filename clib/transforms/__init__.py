@@ -7,3 +7,4 @@ from clib.transforms.imageprocessing import (elastic_transform,
                                              saturation, sharpness,
                                              gamma_adjust
                                              )
+from clib.transforms.coordinate import jitter_position, _check_position
