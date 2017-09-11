@@ -1,6 +1,24 @@
 import numpy
 from clib.utils import randombool
+from clib.transforms import (gaussian_blur, add_noise,
+                             add_salt_and_pepper_noise, contrast,
+                             brightness, saturation, sharpness,
+                             gamma_adjust)
+from skimage import io
 from PIL import Image, ImageEnhance, ImageFilter
+
+
+class ImageAugmentation():
+    def __init__(self, path):
+        self.path = path
+        self.imread = io.imread
+        self.noise = gaussian_blur
+
+    def read(self, imgpath):
+        return self.imread(imgpath)
+
+    def noise(self, img):
+        return self.noise(img)
 
 
 def gamma_table(gamma_r, gamma_g, gamma_b, gain_r=1.0, gain_b=1.0):
