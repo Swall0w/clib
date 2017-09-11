@@ -4,7 +4,7 @@ from clib.transforms import (gaussian_blur, add_noise,
                              add_salt_and_pepper_noise, contrast,
                              brightness, saturation, sharpness,
                              gamma_adjust)
-from skimage import io
+from skimage import io, transform
 from PIL import Image, ImageEnhance, ImageFilter
 
 
@@ -53,6 +53,17 @@ class ImageAugmentation():
     def gamma_adjust(self, img, israndom=False):
         if not israndom:
             img = gamma_adjust(img)
+        return img
+
+    def resize(self, img, size):
+        img = transform.resize(img, size, mode='reflect')
+        return img
+
+    def crop(self, img, position):
+        if img.ndim == 3:
+            img = img[position[0]:position[2], position[1]:position[2], :]
+        else:
+            img = img[position[0]:position[2], position[1]:position[2]]
         return img
 
 def gamma_table(gamma_r, gamma_g, gamma_b, gain_r=1.0, gain_b=1.0):

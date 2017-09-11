@@ -92,3 +92,12 @@ class ImageAugmentationTest(unittest.TestCase):
                          (303, 384))
         self.assertEqual(self.imag.gamma_adjust(img=self.rgbimg).shape,
                          (512, 512, 3))
+
+    def test_crop(self):
+        self.assertEqual(self.imag.crop(self.rgbimg, (0, 50, 100, 200)).shape,
+                         (100, 50, 3))
+        self.assertEqual(self.imag.crop(self.grayimg, (0, 50, 100, 200)).shape,
+                         (100, 50))
+
+    def test_resize(self):
+        self.assertEqual(self.imag.resize(self.rgbimg, (100, 50)).shape, (100, 50, 3))
