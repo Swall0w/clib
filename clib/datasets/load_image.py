@@ -57,7 +57,7 @@ class ImageAugmentation():
 
     def resize(self, img, size):
 #        img = transform.resize(img, size, mode='reflect')
-        image = Image.fromarray(img).resize((size[1], size[0]))
+        image = Image.fromarray(numpy.uint8(img)).resize((size[1], size[0]))
         img = numpy.asarray(image, dtype=numpy.float32)
         return img
 
