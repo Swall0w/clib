@@ -1,6 +1,7 @@
 import unittest
+
 from clib.datasets import ImageAugmentation
-from skimage import  data, io
+from skimage import data, io
 
 
 class ImageAugmentationTest(unittest.TestCase):

@@ -1,6 +1,7 @@
 import unittest
-from skimage import  data, io
-from clib.transforms import jitter_position, _check_position
+
+from clib.transforms import _check_position, jitter_position
+from skimage import data, io
 
 
 class JitterTest(unittest.TestCase):

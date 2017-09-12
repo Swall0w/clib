@@ -5,9 +5,8 @@ import numpy as np
 from chainer import Variable
 from clib.converts.format_image_size import resize_to_yolo
 from clib.links.model.yolo.yolov2 import YOLOv2, YOLOv2Predictor
-from clib.utils import Box, nms, viz_bbox
+from clib.utils import Box, ImageInference, nms, viz_bbox
 from PIL import Image
-from clib.utils import ImageInference
 
 
 def arg():

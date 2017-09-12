@@ -4,11 +4,10 @@ import random
 import numpy
 import six
 from chainer.dataset import dataset_mixin
-from clib.datasets import crop_image_random_transform, uniform, voc_load
-from clib.datasets import ImageAugmentation
-from clib.utils.regrex import is_path
+from clib.datasets import ImageAugmentation, voc_load
 from clib.transforms import jitter_position
 from clib.utils import randombool
+from clib.utils.regrex import is_path
 from skimage.color import gray2rgb
 
 try:
