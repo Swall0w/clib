@@ -77,23 +77,6 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
         if img.ndim == 2:
             img = gray2rgb(img)
 
-#        if self.random_step > 0:
-#            x_step = random.randint(-self.random_step, self.random_step)
-#            y_step = random.randint(-self.random_step, self.random_step)
-#        else:
-#            x_step = 0
-#            y_step = 0
-#        bbox = (bndbox['xmin'], bndbox['ymin'], bndbox['xmax'], bndbox['ymax'])
-#        step = (x_step, y_step)
-#
-#        image = crop_image_random_transform(path=full_path, bbox=bbox,
-#                                            step=step, dtype=self._dtype,
-#                                            blur=True, contrast=True,
-#                                            gamma=True, gauss_noise=True,
-#                                            sp_noise=True, sharpness=True,
-#                                            saturation=True)
-#        image = uniform(image, self.resize, self._dtype)
-
         label_dict = self.label_dict[bndbox['label']]
         label = numpy.array(label_dict, dtype=self._label_dtype)
         return img.transpose(2, 0, 1), label
