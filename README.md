@@ -59,10 +59,12 @@ After installation, you only test train code in examples.
 ## Todo
 
 * Testcode
-* Image data Augmentation class
-* Elastic deformation function
-* Import WGAN from my other repo
-* Import [Seq2Seq](https://github.com/Swall0w/Seq2SeqChatbot) from my repo
+* CycleGAN
+* Refactoring YOLO
+* Refactoring DNC
+* ResNet
+* Show and Tell
+* SSD
 
 ## Future Plan
 ### Image Recognition
