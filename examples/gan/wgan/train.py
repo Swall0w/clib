@@ -1,14 +1,14 @@
 import argparse
 import os
-import numpy as np
-from PIL import Image
+
 import chainer
+import numpy as np
 from chainer import optimizers, training
+from chainer.dataset import convert, iterator
 from chainer.training import extensions
-from chainer.dataset import iterator
-from chainer.dataset import convert
-from clib.links.model.gan import WGANGenerator, WGANCritic
-from clib.training.updater import WGANUpdater, WeightClipping
+from clib.links.model.gan import WGANCritic, WGANGenerator
+from clib.training.updater import WeightClipping, WGANUpdater
+from PIL import Image
 
 
 def arg():

@@ -1,5 +1,5 @@
+from chainer import cuda, serializers
 from clib.utils import load_class
-from chainer import serializers, cuda
 from skimage import io
 
 

@@ -1,9 +1,9 @@
-from PIL import Image, ImageEnhance
 import numpy as np
 import skimage
-from scipy.ndimage.interpolation import map_coordinates
+from PIL import Image, ImageEnhance
 from scipy.ndimage.filters import gaussian_filter
-from skimage import color, exposure
+from scipy.ndimage.interpolation import map_coordinates
+from skimage import color, exposure, filters
 from skimage.util import random_noise
 
 
@@ -43,8 +43,8 @@ def elastic_transform(img, sigma=6, alpha=36, random=False):
 
 
 def gaussian_blur(img, sigma=1, multichannel=True):
-    return skimage.filters.gaussian(image=img, sigma=sigma,
-                                    multichannel=multichannel)
+    return filters.gaussian(image=img, sigma=sigma,
+                            multichannel=multichannel)
 
 
 def add_noise(img, sigma=0.155):

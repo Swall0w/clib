@@ -4,8 +4,11 @@ import random
 import numpy
 import six
 from chainer.dataset import dataset_mixin
-from clib.datasets import crop_image_random_transform, uniform, voc_load
+from clib.datasets import ImageAugmentation, voc_load
+from clib.transforms import jitter_position
+from clib.utils import randombool
 from clib.utils.regrex import is_path
+from skimage.color import gray2rgb
 
 try:
     from PIL import Image
@@ -18,7 +21,8 @@ except ImportError as e:
 class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
 
     def __init__(self, pairs, label_dict, dtype=numpy.float32,
-                 label_dtype=numpy.int32, resize=None, random_step=0):
+                 label_dtype=numpy.int32, resize=None, random_step=0,
+                 is_image_aug=False):
         _check_pillow_availability()
         if isinstance(pairs, six.string_types):
             pairs_path = pairs
@@ -41,6 +45,7 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
         self.resize = resize
         self.random_step = random_step
         self.label_dict = label_dict
+        self.is_image_aug = is_image_aug
 
     def __len__(self):
         return len(self._pairs)
@@ -49,26 +54,31 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
         full_path, label = self._pairs[i]
         img_size, label = voc_load(label)
         bndbox = random.choice(label)
-        if self.random_step > 0:
-            x_step = random.randint(-self.random_step, self.random_step)
-            y_step = random.randint(-self.random_step, self.random_step)
-        else:
-            x_step = 0
-            y_step = 0
+
         bbox = (bndbox['xmin'], bndbox['ymin'], bndbox['xmax'], bndbox['ymax'])
-        step = (x_step, y_step)
+        random_bbox = jitter_position(bbox, img_size,
+                                      step=(self.random_step, self.random_step))
+        imag = ImageAugmentation()
+        img = imag.read(full_path)
+        img = imag.crop(img, random_bbox)
+        img = imag.resize(img, self.resize)
 
-        image = crop_image_random_transform(path=full_path, bbox=bbox,
-                                            step=step, dtype=self._dtype,
-                                            blur=True, contrast=True,
-                                            gamma=True, gauss_noise=True,
-                                            sp_noise=True, sharpness=True,
-                                            saturation=True)
-        image = uniform(image, self.resize, self._dtype)
+        if self.is_image_aug:
+            img = imag.blur(img, israndom=randombool())
+            img = imag.noise(img, israndom=randombool())
+            img = imag.sp_noise(img, israndom=randombool())
+            img = imag.contrast(img, israndom=randombool())
+            img = imag.brightness(img, israndom=randombool())
+            img = imag.saturation(img, israndom=randombool())
+            img = imag.sharpness(img, israndom=randombool())
+            img = imag.gamma_adjust(img, israndom=randombool())
 
+        if img.ndim == 2:
+            img = gray2rgb(img)
+        img = img.astype(self._dtype)
         label_dict = self.label_dict[bndbox['label']]
         label = numpy.array(label_dict, dtype=self._label_dtype)
-        return image.transpose(2, 0, 1), label
+        return img.transpose(2, 0, 1), label
 
 
 def _check_pillow_availability():

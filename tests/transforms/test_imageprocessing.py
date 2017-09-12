@@ -1,12 +1,9 @@
 import unittest
-from clib.transforms import (elastic_transform,
-                             gaussian_blur,
-                             add_noise,
-                             add_salt_and_pepper_noise,
-                             contrast, brightness,
-                             saturation, sharpness,
-                             gamma_adjust)
-from skimage import io, data
+
+from clib.transforms import (add_noise, add_salt_and_pepper_noise, brightness,
+                             contrast, elastic_transform, gamma_adjust,
+                             gaussian_blur, saturation, sharpness)
+from skimage import data, io
 
 
 class ElasticTransformTest(unittest.TestCase):

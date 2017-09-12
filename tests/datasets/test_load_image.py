@@ -1,6 +1,7 @@
 import unittest
+
 from clib.datasets import ImageAugmentation
-from skimage import  data, io
+from skimage import data, io
 
 
 class ImageAugmentationTest(unittest.TestCase):
@@ -95,9 +96,11 @@ class ImageAugmentationTest(unittest.TestCase):
 
     def test_crop(self):
         self.assertEqual(self.imag.crop(self.rgbimg, (0, 50, 100, 200)).shape,
-                         (100, 50, 3))
+                         (150, 100, 3))
         self.assertEqual(self.imag.crop(self.grayimg, (0, 50, 100, 200)).shape,
-                         (100, 50))
+                         (150, 100))
 
     def test_resize(self):
         self.assertEqual(self.imag.resize(self.rgbimg, (100, 50)).shape, (100, 50, 3))
+        self.assertEqual(self.imag.resize(self.rgbimg[20:50, 100:200, :],
+                                          (100, 50)).shape, (100, 50, 3))
