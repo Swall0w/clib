@@ -6,6 +6,7 @@ from clib.transforms import (gaussian_blur, add_noise,
                              gamma_adjust)
 from skimage import io, transform
 from PIL import Image, ImageEnhance, ImageFilter
+from scipy.misc import imresize
 
 
 class ImageAugmentation():
@@ -57,8 +58,10 @@ class ImageAugmentation():
 
     def resize(self, img, size):
 #        img = transform.resize(img, size, mode='reflect')
-        image = Image.fromarray(numpy.uint8(img)).resize((size[1], size[0]))
-        img = numpy.asarray(image, dtype=numpy.float32)
+
+#        image = Image.fromarray(numpy.uint8(img)).resize((size[1], size[0]))
+#        img = numpy.asarray(image, dtype=numpy.float32)
+        img = imresize(img, size, interp='bicubic')
         return img
 
     def crop(self, img, position):
