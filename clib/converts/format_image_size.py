@@ -16,6 +16,9 @@ def batch(batch):
 
 
 def resize_to_yolo(img):
+    if img.ndim == 2:
+        raise ValueError(
+            "image shoule be RGB format. But image is {}".format(img.ndim))
     input_height, input_width, _ = img.shape
     min_pixel = 320
     max_pixel = 448
@@ -31,6 +34,6 @@ def resize_to_yolo(img):
 
     input_width = int(input_width / 32 + round(input_width % 32 / 32)) * 32
     input_height = int(input_height / 32 + round(input_height % 32 / 32)) * 32
-    img = imresize(img, (input_width, input_height), mode='reflect')
+    img = imresize(img, (input_height, input_width), mode='reflect')
 
     return img
