@@ -57,18 +57,18 @@ class ImageAugmentation():
         return img
 
     def resize(self, img, size):
-#        img = transform.resize(img, size, mode='reflect')
+        img = transform.resize(img, size, mode='reflect')
 
 #        image = Image.fromarray(numpy.uint8(img)).resize((size[1], size[0]))
 #        img = numpy.asarray(image, dtype=numpy.float32)
-        img = imresize(img, size, interp='bicubic')
+#        img = imresize(img, size, interp='bicubic')
         return img
 
     def crop(self, img, position):
         if img.ndim == 3:
-            img = img[position[0]:position[2], position[1]:position[2], :]
+            img = img[position[0]:position[2], position[1]:position[3], :]
         else:
-            img = img[position[0]:position[2], position[1]:position[2]]
+            img = img[position[0]:position[2], position[1]:position[3]]
         return img
 
 def gamma_table(gamma_r, gamma_g, gamma_b, gain_r=1.0, gain_b=1.0):
