@@ -76,7 +76,7 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
 
         if img.ndim == 2:
             img = gray2rgb(img)
-
+        img = img.astype(self._dtype)
         label_dict = self.label_dict[bndbox['label']]
         label = numpy.array(label_dict, dtype=self._label_dtype)
         return img.transpose(2, 0, 1), label
