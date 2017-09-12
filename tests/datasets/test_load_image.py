@@ -101,3 +101,5 @@ class ImageAugmentationTest(unittest.TestCase):
 
     def test_resize(self):
         self.assertEqual(self.imag.resize(self.rgbimg, (100, 50)).shape, (100, 50, 3))
+        self.assertEqual(self.imag.resize(self.rgbimg[20:50, 100:200, :],
+                                          (100, 50)).shape, (100, 50, 3))

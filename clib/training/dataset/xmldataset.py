@@ -63,7 +63,7 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
         img = imag.crop(img, random_bbox)
         img = imag.resize(img, self.resize)
 
-        if is_image_aug:
+        if self.is_image_aug:
             img = imag.blur(img, israndom=randombool())
             img = imag.noise(img, israndom=randombool())
             img = imag.sp_noise(img, israndom=randombool())
