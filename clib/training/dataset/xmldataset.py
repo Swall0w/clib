@@ -73,6 +73,7 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
             img = imag.sharpness(img, israndom=randombool())
             img = imag.gamma_adjust(img, israndom=randombool())
 
+
 #        if self.random_step > 0:
 #            x_step = random.randint(-self.random_step, self.random_step)
 #            y_step = random.randint(-self.random_step, self.random_step)
@@ -92,7 +93,7 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
 
         label_dict = self.label_dict[bndbox['label']]
         label = numpy.array(label_dict, dtype=self._label_dtype)
-        return image.transpose(2, 0, 1), label
+        return img.transpose(2, 0, 1), label
 
 
 def _check_pillow_availability():
