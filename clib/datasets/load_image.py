@@ -66,9 +66,9 @@ class ImageAugmentation():
 
     def crop(self, img, position):
         if img.ndim == 3:
-            img = img[position[0]:position[2], position[1]:position[3], :]
+            img = img[position[1]:position[3], position[0]:position[2], :]
         else:
-            img = img[position[0]:position[2], position[1]:position[3]]
+            img = img[position[1]:position[3], position[0]:position[2]]
         return img
 
 def gamma_table(gamma_r, gamma_g, gamma_b, gain_r=1.0, gain_b=1.0):
