@@ -9,6 +9,7 @@ from clib.datasets import ImageAugmentation
 from clib.utils.regrex import is_path
 from clib.transforms import jitter_position
 from clib.utils import randombool
+from skimage.color import gray2rgb
 
 try:
     from PIL import Image
@@ -73,6 +74,8 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
             img = imag.sharpness(img, israndom=randombool())
             img = imag.gamma_adjust(img, israndom=randombool())
 
+        if img.ndim == 2:
+            img = gray2rgb(img)
 
 #        if self.random_step > 0:
 #            x_step = random.randint(-self.random_step, self.random_step)
