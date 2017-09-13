@@ -8,9 +8,11 @@ def batch(batch):
 
     for index, item in enumerate(batch):
         original_image = item[0]
-        resized_image = imresize(original_image,
+        transpose_image = np.transpose(original_image, (1, 2, 0))
+        resized_image = imresize(transpose_image,
                                  (format_size, format_size),
                                  mode='reflect')
+        resized_image = resized_image.transpose(2, 0, 1).astype(np.float32)
         format_batch.append((resized_image, batch[index][1]))
     return format_batch
 

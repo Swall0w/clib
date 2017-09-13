@@ -22,8 +22,13 @@ class BatchTest(unittest.TestCase):
     def setUp(self):
         self.rgbimg1 = data.astronaut()
         self.rgbimg2 = resize(self.rgbimg1, (400, 400), mode='reflect')
-        self.dat = [(self.rgbimg2, 0), (self.rgbimg1, 1)]
+
+        self.rgbimg1 = self.rgbimg1.transpose(2, 0, 1)
+        self.rgbimg2 = self.rgbimg2.transpose(2, 0, 1)
+
+        self.dat = [(self.rgbimg2, 0),
+                    (self.rgbimg1, 1)]
 
     def test_batch(self):
         self.assertEqual(batch(self.dat)[1][0].shape,
-                         (400, 400, 3))
+                         (3, 400, 400))
