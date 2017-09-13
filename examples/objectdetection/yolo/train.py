@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import argparse
 
 import chainer
@@ -7,7 +5,6 @@ from chainer import optimizers, training
 from chainer.training import extensions
 from clib.links.model.yolo.yolov2 import YOLOv2, YOLOv2Predictor
 from clib.training.dataset import YoloPreprocessedDataset
-from clib.training.iterator import YoloIterator
 from clib.training.updater import YoloUpdater
 
 
@@ -68,7 +65,8 @@ def main():
 
     train = YoloPreprocessedDataset(
         dirs=(args.images, args.labels), resize=resize, tags=args.tags)
-    train_itr = YoloIterator(dataset=train, batch_size=args.batch)
+    train_itr = chainer.iterators.SerialIterator(
+        dataset=train, batch_size=args.batch)
     updater = YoloUpdater(train_itr, optimizer, device=args.gpu)
     trainer = training.Trainer(updater, (args.epoch, 'epoch'), out=args.output)
 
