@@ -26,8 +26,9 @@ def jitter_position(bbox, size, step=(0, 0)):
 def _check_position(bbox, size):
     if ((bbox[2] - bbox[0]) <= 0) or ((bbox[3] - bbox[1]) <= 0):
         return False
-    elif ((bbox[0] < 0) or (bbox[1] < 0) or
-          (bbox[2] > size[1]) or (bbox[3] > size[0])):
+    elif (bbox[0] < 0) or (bbox[1] < 0):
+        return False
+    elif (bbox[2] > size[1]) or (bbox[3] > size[0]):
         return False
     else:
         return True
