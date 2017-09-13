@@ -69,4 +69,5 @@ class YoloPreprocessedDataset(chainer.dataset.DatasetMixin):
 
         image = imresize(image, crop_size, mode='reflect')
         image = skimage.img_as_float(image)
+        image = image.transpose(2, 0, 1)
         return image, labels
