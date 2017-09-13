@@ -8,10 +8,16 @@ class ResizeYoloTest(unittest.TestCase):
     def setUp(self):
         self.grayimg = data.coins()
         self.rgbimg = data.astronaut()
+        self.rgbimg2 = resize(self.rgbimg,(300, 300), mode='reflect')
+        self.rgbimg3 = resize(self.rgbimg,(100, 300), mode='reflect')
 
     def test_resize_to_yolo(self):
         self.assertEqual(resize_to_yolo(self.rgbimg).shape,
                          (448, 448, 3))
+        self.assertEqual(resize_to_yolo(self.rgbimg2).shape,
+                         (320, 320, 3))
+        self.assertEqual(resize_to_yolo(self.rgbimg3).shape,
+                         (160, 448, 3))
 #        with self.assertRaises(ValueError ) as cm:
 #            resize_to_yolo(self.grayimg)
 #        exception = cm.exception
