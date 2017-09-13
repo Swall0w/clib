@@ -19,13 +19,16 @@ def jitter_position(bbox, size, step=(0, 0)):
 
         new_bbox = (new_x_min, new_y_min, new_x_max, new_y_max)
 
-        if (_check_position(new_bbox) and (new_width <= size[0])
-            and (new_height <= size[1])):
+        if (_check_position(new_bbox, size)):
             break
     return new_bbox
 
-def _check_position(bbox):
+def _check_position(bbox, size):
     if ((bbox[2] - bbox[0]) <= 0) or ((bbox[3] - bbox[1]) <= 0):
+        return False
+    elif (bbox[0] < 0) or (bbox[1] < 0):
+        return False
+    elif (bbox[2] > size[1]) or (bbox[3] > size[0]):
         return False
     else:
         return True
