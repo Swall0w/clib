@@ -24,7 +24,7 @@ def xml_parse(f):
             pass
         finally:
             ground_truths.append(bbox)
-    return (width, height), ground_truths
+    return (height, width), ground_truths
 
 
 def voc_load(file_path):
