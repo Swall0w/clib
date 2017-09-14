@@ -10,3 +10,4 @@ class UnifiedDatasetTest(unittest.TestCase):
     def test_xmldataset(self):
         self.assertEqual(len(self.dataset), 1)
         self.assertEqual(len(self.dataset[0]), 2)
+        self.assertEqual(self.dataset[0][1], 0)

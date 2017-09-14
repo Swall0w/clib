@@ -2,8 +2,8 @@ import os
 
 import numpy
 import six
-from chainer.dataset import dataset_mixin
 from PIL import Image
+from .basedataset import BaseLabeledImageDataset
 
 
 def to_rgb(image, dtype):
@@ -30,29 +30,7 @@ def _read_image_as_array(path, dtype, resize):
     return image
 
 
-class UnifiedLabeledImageDataset(dataset_mixin.DatasetMixin):
-
-    def __init__(self, pairs, dtype=numpy.float32,
-                 label_dtype=numpy.int32, resize=None):
-        if isinstance(pairs, six.string_types):
-            pairs_path = pairs
-            with open(pairs_path) as pairs_file:
-                pairs = []
-                for i, line in enumerate(pairs_file):
-                    pair = line.strip().split()
-                    if len(pair) != 2:
-                        raise ValueError(
-                            'invalid format at line {} in file {}'.format(
-                                i, pairs_path))
-                    pairs.append((pair[0], int(pair[1])))
-        self._pairs = pairs
-        self._dtype = dtype
-        self._label_dtype = label_dtype
-        self.resize = resize
-
-    def __len__(self):
-        return len(self._pairs)
-
+class UnifiedLabeledImageDataset(BaseLabeledImageDataset):
     def get_example(self, i):
         full_path, int_label = self._pairs[i]
         image = _read_image_as_array(full_path, self._dtype, self.resize)
