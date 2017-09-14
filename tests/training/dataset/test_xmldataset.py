@@ -10,7 +10,8 @@ class XMLDatasetTest(unittest.TestCase):
         self.labelfile = 'tests/data/label.txt'
         self.dataset = XMLLabeledImageDataset(pairs=self.labelfile,
                                               label_dict=self.tags,
-                                              resize=(10, 10))
+                                              resize=(10, 10),
+                                              is_image_aug=True)
 
     def test_xmldataset(self):
         self.assertEqual(len(self.dataset), 1)
