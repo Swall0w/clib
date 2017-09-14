@@ -28,6 +28,9 @@ install:
 test: clean-pyc
 	py.test --verbose --color=yes $(TEST_PATH)
 
+cov: clean-pyc
+	py.test --verbose --color=yes --cov=clib --cov-config .coveragerc
+
 reset: clean
 	pip uninstall clib -y
 	python3 setup.py build
