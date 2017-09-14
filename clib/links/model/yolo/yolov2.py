@@ -186,11 +186,11 @@ class YOLOv2Predictor(Chain):
                                self.predictor.n_boxes,
                                self.predictor.n_classes+5,
                                grid_h, grid_w)), (1, 2, 3, 4, 5), axis=2)
-        x = F.sigmoid(x)  # xのactivation
-        y = F.sigmoid(y)  # yのactivation
-        conf = F.sigmoid(conf)  # confのactivation
+        x = F.sigmoid(x)
+        y = F.sigmoid(y)
+        conf = F.sigmoid(conf)
         prob = F.transpose(prob, (0, 2, 1, 3, 4))
-        prob = F.softmax(prob)  # probablitiyのacitivation
+        prob = F.softmax(prob)
 
         # 教師データの用意
         # wとhが0になるように学習(e^wとe^hは1に近づく
@@ -355,29 +355,32 @@ class YOLOv2Predictor(Chain):
 
     def predict(self, input_x):
         output = self.predictor(input_x)
-        batch_size, input_channel, input_h, input_w = input_x.shape
         batch_size, _, grid_h, grid_w = output.shape
-        x, y, w, h, conf, prob = F.split_axis(F.reshape(output, (
-            batch_size, self.predictor.n_boxes, self.predictor.n_classes+5,
-            grid_h, grid_w)), (1, 2, 3, 4, 5), axis=2)
-        x = F.sigmoid(x)  # xのactivation
-        y = F.sigmoid(y)  # yのactivation
-        conf = F.sigmoid(conf)  # confのactivation
+        x, y, w, h, conf, prob = F.split_axis(
+            F.reshape(output, (batch_size,
+                               self.predictor.n_boxes,
+                               self.predictor.n_classes+5,
+                               grid_h, grid_w)), (1, 2, 3, 4, 5), axis=2)
+        x = F.sigmoid(x)
+        y = F.sigmoid(y)
+        conf = F.sigmoid(conf)
         prob = F.transpose(prob, (0, 2, 1, 3, 4))
-        prob = F.softmax(prob)  # probablitiyのacitivation
+        prob = F.softmax(prob)
         prob = F.transpose(prob, (0, 2, 1, 3, 4))
 
-        # x, y, w, hを絶対座標へ変換
-        x_shift = Variable(np.broadcast_to(np.arange(
-            grid_w, dtype=np.float32), x.shape))
-        y_shift = Variable(np.broadcast_to(np.arange(
-            grid_h, dtype=np.float32).reshape(grid_h, 1), y.shape))
-        w_anchor = Variable(np.broadcast_to(np.reshape(np.array(
-            self.anchors, dtype=np.float32)[:, 0],
-            (self.predictor.n_boxes, 1, 1, 1)), w.shape))
-        h_anchor = Variable(np.broadcast_to(np.reshape(np.array(
-            self.anchors, dtype=np.float32)[:, 1],
-            (self.predictor.n_boxes, 1, 1, 1)), h.shape))
+        # tranform x, y, w, h to absolute coordinates
+        x_shift = Variable(np.broadcast_to(
+            np.arange(grid_w, dtype=np.float32), x.shape))
+        y_shift = Variable(np.broadcast_to(
+            np.arange(grid_h, dtype=np.float32).reshape(grid_h, 1),
+            y.shape))
+        w_anchor = Variable(np.broadcast_to(
+            np.reshape(np.array(self.anchors, dtype=np.float32)[:, 0],
+                       (self.predictor.n_boxes, 1, 1, 1)), w.shape))
+        h_anchor = Variable(np.broadcast_to(
+            np.reshape(np.array(self.anchors, dtype=np.float32)[:, 1],
+                       (self.predictor.n_boxes, 1, 1, 1)), h.shape))
+
         box_x = (x + x_shift) / grid_w
         box_y = (y + y_shift) / grid_h
         box_w = F.exp(w) * w_anchor / grid_w
