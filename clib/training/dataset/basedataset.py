@@ -6,7 +6,7 @@ from clib.utils.regrex import is_path
 
 class BaseLabeledImageDataset(dataset_mixin.DatasetMixin):
 
-    def __init__(self, pairs, label_dict, dtype=numpy.float32,
+    def __init__(self, pairs, label_dict=None, dtype=numpy.float32,
                  label_dtype=numpy.int32, resize=None, random_step=0,
                  is_image_aug=False):
         if isinstance(pairs, six.string_types):
