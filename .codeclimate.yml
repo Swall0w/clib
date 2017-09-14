@@ -1,2 +1,7 @@
+languages:
+    Python: true
+    Javascript: true
+
+
 exclude_paths:
-- "clib/links/model/"
+    - clib/links/model/**
