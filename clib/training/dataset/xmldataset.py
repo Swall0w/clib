@@ -10,20 +10,12 @@ from clib.utils import randombool
 from clib.utils.regrex import is_path
 from skimage.color import gray2rgb
 
-try:
-    from PIL import Image
-    available = True
-except ImportError as e:
-    available = False
-    _import_error = e
-
 
 class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
 
     def __init__(self, pairs, label_dict, dtype=numpy.float32,
                  label_dtype=numpy.int32, resize=None, random_step=0,
                  is_image_aug=False):
-        _check_pillow_availability()
         if isinstance(pairs, six.string_types):
             pairs_path = pairs
             with open(pairs_path) as pairs_file:
@@ -79,10 +71,3 @@ class XMLLabeledImageDataset(dataset_mixin.DatasetMixin):
         label_dict = self.label_dict[bndbox['label']]
         label = numpy.array(label_dict, dtype=self._label_dtype)
         return img.transpose(2, 0, 1), label
-
-
-def _check_pillow_availability():
-    if not available:
-        raise ImportError('PIL cannot be loaded. Install Pillow!\n'
-                          'The actual import error is as follows:\n' +
-                          str(_import_error))
