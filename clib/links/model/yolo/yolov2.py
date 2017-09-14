@@ -84,7 +84,7 @@ class YOLOv2(Chain):
             self.bias17 = L.Bias(shape=(512,))
             self.conv18 = L.Convolution2D(512, 1024, ksize=3, stride=1,
                                    pad=1, nobias=True)
-            self.bn18 = L.BatchNormalization(1024, use_beta=False, eps=2e-5),
+            self.bn18 = L.BatchNormalization(1024, use_beta=False, eps=2e-5)
             self.bias18 = L.Bias(shape=(1024,))
 
             # new layer
