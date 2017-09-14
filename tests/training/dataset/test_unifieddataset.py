@@ -5,7 +5,8 @@ from clib.training.dataset import UnifiedLabeledImageDataset
 class UnifiedDatasetTest(unittest.TestCase):
     def setUp(self):
         self.labelfile = 'tests/data/label_class.txt'
-        self.dataset = UnifiedLabeledImageDataset(pairs=self.labelfile)
+        self.dataset = UnifiedLabeledImageDataset(pairs=self.labelfile,
+                                                  resize=100)
 
     def test_xmldataset(self):
         self.assertEqual(len(self.dataset), 1)
