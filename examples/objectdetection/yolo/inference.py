@@ -85,7 +85,16 @@ class YoloInference(ImageInference):
             })
 
         nms_results = nms(results, self.iou_thresh)
-        return nms_results
+        outputs = []
+        for result in nms_results:
+            output = {}
+            output['left'], output['top'] = result["box"].int_left_top()
+            output['right'], output['bottom'] = result["box"].int_right_bottom()
+            output['class'] = result['label']
+            output['prob'] = result['probs'].max() * result['conf'] * 100
+            outputs.append(output)
+
+        return outputs
 
 
 if __name__ == "__main__":
@@ -101,17 +110,7 @@ if __name__ == "__main__":
 
     print("loading image...")
     img = yolo_inference.load_image(args.input)
-    nms_results = yolo_inference(img)
-
-    outputs = []
-    for result in nms_results:
-        output = {}
-        output['left'], output['top'] = result["box"].int_left_top()
-        output['right'], output['bottom'] = result["box"].int_right_bottom()
-        output['class'] = result['label']
-        output['prob'] = result['probs'].max() * result['conf'] * 100
-        outputs.append(output)
-
+    outputs = yolo_inference(img)
     orig_img = Image.open(args.input)
     output_img = viz_bbox(orig_img, outputs)
     output_img.save(args.output)
