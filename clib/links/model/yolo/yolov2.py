@@ -12,98 +12,98 @@ class YOLOv2(Chain):
     - It takes (416, 416, 3) sized image as input
     """
     def __init__(self, n_classes, n_boxes):
-        super(YOLOv2, self).__init__(
-            # common layers for both pretrained layers and yolov2 #####
-            conv1=L.Convolution2D(3, 32, ksize=3, stride=1,
-                                  pad=1, nobias=True),
-            bn1=L.BatchNormalization(32, use_beta=False, eps=2e-5),
-            bias1=L.Bias(shape=(32,)),
-            conv2=L.Convolution2D(32, 64, ksize=3, stride=1,
-                                  pad=1, nobias=True),
-            bn2=L.BatchNormalization(64, use_beta=False, eps=2e-5),
-            bias2=L.Bias(shape=(64,)),
-            conv3=L.Convolution2D(64, 128, ksize=3, stride=1,
-                                  pad=1, nobias=True),
-            bn3=L.BatchNormalization(128, use_beta=False, eps=2e-5),
-            bias3=L.Bias(shape=(128,)),
-            conv4=L.Convolution2D(128, 64, ksize=1, stride=1,
-                                  pad=0, nobias=True),
-            bn4=L.BatchNormalization(64, use_beta=False, eps=2e-5),
-            bias4=L.Bias(shape=(64,)),
-            conv5=L.Convolution2D(64, 128, ksize=3, stride=1,
-                                  pad=1, nobias=True),
-            bn5=L.BatchNormalization(128, use_beta=False, eps=2e-5),
-            bias5=L.Bias(shape=(128,)),
-            conv6=L.Convolution2D(128, 256, ksize=3, stride=1,
-                                  pad=1, nobias=True),
-            bn6=L.BatchNormalization(256, use_beta=False, eps=2e-5),
-            bias6=L.Bias(shape=(256,)),
-            conv7=L.Convolution2D(256, 128, ksize=1, stride=1,
-                                  pad=0, nobias=True),
-            bn7=L.BatchNormalization(128, use_beta=False, eps=2e-5),
-            bias7=L.Bias(shape=(128,)),
-            conv8=L.Convolution2D(128, 256, ksize=3, stride=1,
-                                  pad=1, nobias=True),
-            bn8=L.BatchNormalization(256, use_beta=False, eps=2e-5),
-            bias8=L.Bias(shape=(256,)),
-            conv9=L.Convolution2D(256, 512, ksize=3, stride=1,
-                                  pad=1, nobias=True),
-            bn9=L.BatchNormalization(512, use_beta=False, eps=2e-5),
-            bias9=L.Bias(shape=(512,)),
-            conv10=L.Convolution2D(512, 256, ksize=1, stride=1,
-                                   pad=0, nobias=True),
-            bn10=L.BatchNormalization(256, use_beta=False, eps=2e-5),
-            bias10=L.Bias(shape=(256,)),
-            conv11=L.Convolution2D(256, 512, ksize=3, stride=1,
-                                   pad=1, nobias=True),
-            bn11=L.BatchNormalization(512, use_beta=False, eps=2e-5),
-            bias11=L.Bias(shape=(512,)),
-            conv12=L.Convolution2D(512, 256, ksize=1, stride=1,
-                                   pad=0, nobias=True),
-            bn12=L.BatchNormalization(256, use_beta=False, eps=2e-5),
-            bias12=L.Bias(shape=(256,)),
-            conv13=L.Convolution2D(256, 512, ksize=3, stride=1,
-                                   pad=1, nobias=True),
-            bn13=L.BatchNormalization(512, use_beta=False, eps=2e-5),
-            bias13=L.Bias(shape=(512,)),
-            conv14=L.Convolution2D(512, 1024, ksize=3, stride=1,
-                                   pad=1, nobias=True),
-            bn14=L.BatchNormalization(1024, use_beta=False, eps=2e-5),
-            bias14=L.Bias(shape=(1024,)),
-            conv15=L.Convolution2D(1024, 512, ksize=1, stride=1,
-                                   pad=0, nobias=True),
-            bn15=L.BatchNormalization(512, use_beta=False, eps=2e-5),
-            bias15=L.Bias(shape=(512,)),
-            conv16=L.Convolution2D(512, 1024, ksize=3, stride=1,
-                                   pad=1, nobias=True),
-            bn16=L.BatchNormalization(1024, use_beta=False, eps=2e-5),
-            bias16=L.Bias(shape=(1024,)),
-            conv17=L.Convolution2D(1024, 512, ksize=1, stride=1,
-                                   pad=0, nobias=True),
-            bn17=L.BatchNormalization(512, use_beta=False, eps=2e-5),
-            bias17=L.Bias(shape=(512,)),
-            conv18=L.Convolution2D(512, 1024, ksize=3, stride=1,
-                                   pad=1, nobias=True),
-            bn18=L.BatchNormalization(1024, use_beta=False, eps=2e-5),
-            bias18=L.Bias(shape=(1024,)),
+        super(YOLOv2, self).__init__()
+        with self.init_scope():
+            self.conv1 = L.Convolution2D(3, 32, ksize=3, stride=1,
+                                  pad=1, nobias=True)
+            self.bn1 = L.BatchNormalization(32, use_beta=False, eps=2e-5)
+            self.bias1 = L.Bias(shape=(32,))
+            self.conv2 = L.Convolution2D(32, 64, ksize=3, stride=1,
+                                  pad=1, nobias=True)
+            self.bn2 = L.BatchNormalization(64, use_beta=False, eps=2e-5)
+            self.bias2 = L.Bias(shape=(64,))
+            self.conv3 = L.Convolution2D(64, 128, ksize=3, stride=1,
+                                  pad=1, nobias=True)
+            self.bn3 = L.BatchNormalization(128, use_beta=False, eps=2e-5)
+            self.bias3 = L.Bias(shape=(128,))
+            self.conv4 = L.Convolution2D(128, 64, ksize=1, stride=1,
+                                  pad=0, nobias=True)
+            self.bn4 = L.BatchNormalization(64, use_beta=False, eps=2e-5)
+            self.bias4 = L.Bias(shape=(64,))
+            self.conv5 = L.Convolution2D(64, 128, ksize=3, stride=1,
+                                  pad=1, nobias=True)
+            self.bn5 = L.BatchNormalization(128, use_beta=False, eps=2e-5)
+            self.bias5 = L.Bias(shape=(128,))
+            self.conv6 = L.Convolution2D(128, 256, ksize=3, stride=1,
+                                  pad=1, nobias=True)
+            self.bn6 = L.BatchNormalization(256, use_beta=False, eps=2e-5)
+            self.bias6 = L.Bias(shape=(256,))
+            self.conv7 = L.Convolution2D(256, 128, ksize=1, stride=1,
+                                  pad=0, nobias=True)
+            self.bn7 = L.BatchNormalization(128, use_beta=False, eps=2e-5)
+            self.bias7 = L.Bias(shape=(128,))
+            self.conv8 = L.Convolution2D(128, 256, ksize=3, stride=1,
+                                  pad=1, nobias=True)
+            self.bn8 = L.BatchNormalization(256, use_beta=False, eps=2e-5)
+            self.bias8 = L.Bias(shape=(256,))
+            self.conv9 = L.Convolution2D(256, 512, ksize=3, stride=1,
+                                  pad=1, nobias=True)
+            self.bn9 = L.BatchNormalization(512, use_beta=False, eps=2e-5)
+            self.bias9 = L.Bias(shape=(512,))
+            self.conv10 = L.Convolution2D(512, 256, ksize=1, stride=1,
+                                   pad=0, nobias=True)
+            self.bn10 = L.BatchNormalization(256, use_beta=False, eps=2e-5)
+            self.bias10 = L.Bias(shape=(256,))
+            self.conv11 = L.Convolution2D(256, 512, ksize=3, stride=1,
+                                   pad=1, nobias=True)
+            self.bn11 = L.BatchNormalization(512, use_beta=False, eps=2e-5)
+            self.bias11 = L.Bias(shape=(512,))
+            self.conv12 = L.Convolution2D(512, 256, ksize=1, stride=1,
+                                   pad=0, nobias=True)
+            self.bn12 = L.BatchNormalization(256, use_beta=False, eps=2e-5)
+            self.bias12 = L.Bias(shape=(256,))
+            self.conv13 = L.Convolution2D(256, 512, ksize=3, stride=1,
+                                   pad=1, nobias=True)
+            self.bn13 = L.BatchNormalization(512, use_beta=False, eps=2e-5)
+            self.bias13 = L.Bias(shape=(512,))
+            self.conv14 = L.Convolution2D(512, 1024, ksize=3, stride=1,
+                                   pad=1, nobias=True)
+            self.bn14 = L.BatchNormalization(1024, use_beta=False, eps=2e-5)
+            self.bias14 = L.Bias(shape=(1024,))
+            self.conv15 = L.Convolution2D(1024, 512, ksize=1, stride=1,
+                                   pad=0, nobias=True)
+            self.bn15 = L.BatchNormalization(512, use_beta=False, eps=2e-5)
+            self.bias15 = L.Bias(shape=(512,))
+            self.conv16 = L.Convolution2D(512, 1024, ksize=3, stride=1,
+                                   pad=1, nobias=True)
+            self.bn16 = L.BatchNormalization(1024, use_beta=False, eps=2e-5)
+            self.bias16 = L.Bias(shape=(1024,))
+            self.conv17 = L.Convolution2D(1024, 512, ksize=1, stride=1,
+                                   pad=0, nobias=True)
+            self.bn17 = L.BatchNormalization(512, use_beta=False, eps=2e-5)
+            self.bias17 = L.Bias(shape=(512,))
+            self.conv18 = L.Convolution2D(512, 1024, ksize=3, stride=1,
+                                   pad=1, nobias=True)
+            self.bn18 = L.BatchNormalization(1024, use_beta=False, eps=2e-5)
+            self.bias18 = L.Bias(shape=(1024,))
 
             # new layer
-            conv19=L.Convolution2D(1024, 1024, ksize=3, stride=1,
-                                   pad=1, nobias=True),
-            bn19=L.BatchNormalization(1024, use_beta=False),
-            bias19=L.Bias(shape=(1024,)),
-            conv20=L.Convolution2D(1024, 1024, ksize=3, stride=1,
-                                   pad=1, nobias=True),
-            bn20=L.BatchNormalization(1024, use_beta=False),
-            bias20=L.Bias(shape=(1024,)),
-            conv21=L.Convolution2D(3072, 1024, ksize=3, stride=1,
-                                   pad=1, nobias=True),
-            bn21=L.BatchNormalization(1024, use_beta=False),
-            bias21=L.Bias(shape=(1024,)),
-            conv22=L.Convolution2D(1024, n_boxes * (5 + n_classes),
-                                   ksize=1, stride=1, pad=0, nobias=True),
-            bias22=L.Bias(shape=(n_boxes * (5 + n_classes),)),
-        )
+            self.conv19 = L.Convolution2D(1024, 1024, ksize=3, stride=1,
+                                   pad=1, nobias=True)
+            self.bn19 = L.BatchNormalization(1024, use_beta=False)
+            self.bias19 = L.Bias(shape=(1024,))
+            self.conv20 = L.Convolution2D(1024, 1024, ksize=3, stride=1,
+                                   pad=1, nobias=True)
+            self.bn20 = L.BatchNormalization(1024, use_beta=False)
+            self.bias20 = L.Bias(shape=(1024,))
+            self.conv21 = L.Convolution2D(3072, 1024, ksize=3, stride=1,
+                                   pad=1, nobias=True)
+            self.bn21 = L.BatchNormalization(1024, use_beta=False)
+            self.bias21 = L.Bias(shape=(1024,))
+            self.conv22 = L.Convolution2D(1024, n_boxes * (5 + n_classes),
+                                   ksize=1, stride=1, pad=0, nobias=True)
+            self.bias22 = L.Bias(shape=(n_boxes * (5 + n_classes),))
+
         self.finetune = False
         self.n_boxes = n_boxes
         self.n_classes = n_classes
@@ -186,11 +186,11 @@ class YOLOv2Predictor(Chain):
                                self.predictor.n_boxes,
                                self.predictor.n_classes+5,
                                grid_h, grid_w)), (1, 2, 3, 4, 5), axis=2)
-        x = F.sigmoid(x)  # xのactivation
-        y = F.sigmoid(y)  # yのactivation
-        conf = F.sigmoid(conf)  # confのactivation
+        x = F.sigmoid(x)
+        y = F.sigmoid(y)
+        conf = F.sigmoid(conf)
         prob = F.transpose(prob, (0, 2, 1, 3, 4))
-        prob = F.softmax(prob)  # probablitiyのacitivation
+        prob = F.softmax(prob)
 
         # 教師データの用意
         # wとhが0になるように学習(e^wとe^hは1に近づく
@@ -355,29 +355,32 @@ class YOLOv2Predictor(Chain):
 
     def predict(self, input_x):
         output = self.predictor(input_x)
-        batch_size, input_channel, input_h, input_w = input_x.shape
         batch_size, _, grid_h, grid_w = output.shape
-        x, y, w, h, conf, prob = F.split_axis(F.reshape(output, (
-            batch_size, self.predictor.n_boxes, self.predictor.n_classes+5,
-            grid_h, grid_w)), (1, 2, 3, 4, 5), axis=2)
-        x = F.sigmoid(x)  # xのactivation
-        y = F.sigmoid(y)  # yのactivation
-        conf = F.sigmoid(conf)  # confのactivation
+        x, y, w, h, conf, prob = F.split_axis(
+            F.reshape(output, (batch_size,
+                               self.predictor.n_boxes,
+                               self.predictor.n_classes+5,
+                               grid_h, grid_w)), (1, 2, 3, 4, 5), axis=2)
+        x = F.sigmoid(x)
+        y = F.sigmoid(y)
+        conf = F.sigmoid(conf)
         prob = F.transpose(prob, (0, 2, 1, 3, 4))
-        prob = F.softmax(prob)  # probablitiyのacitivation
+        prob = F.softmax(prob)
         prob = F.transpose(prob, (0, 2, 1, 3, 4))
 
-        # x, y, w, hを絶対座標へ変換
-        x_shift = Variable(np.broadcast_to(np.arange(
-            grid_w, dtype=np.float32), x.shape))
-        y_shift = Variable(np.broadcast_to(np.arange(
-            grid_h, dtype=np.float32).reshape(grid_h, 1), y.shape))
-        w_anchor = Variable(np.broadcast_to(np.reshape(np.array(
-            self.anchors, dtype=np.float32)[:, 0],
-            (self.predictor.n_boxes, 1, 1, 1)), w.shape))
-        h_anchor = Variable(np.broadcast_to(np.reshape(np.array(
-            self.anchors, dtype=np.float32)[:, 1],
-            (self.predictor.n_boxes, 1, 1, 1)), h.shape))
+        # tranform x, y, w, h to absolute coordinates
+        x_shift = Variable(np.broadcast_to(
+            np.arange(grid_w, dtype=np.float32), x.shape))
+        y_shift = Variable(np.broadcast_to(
+            np.arange(grid_h, dtype=np.float32).reshape(grid_h, 1),
+            y.shape))
+        w_anchor = Variable(np.broadcast_to(
+            np.reshape(np.array(self.anchors, dtype=np.float32)[:, 0],
+                       (self.predictor.n_boxes, 1, 1, 1)), w.shape))
+        h_anchor = Variable(np.broadcast_to(
+            np.reshape(np.array(self.anchors, dtype=np.float32)[:, 1],
+                       (self.predictor.n_boxes, 1, 1, 1)), h.shape))
+
         box_x = (x + x_shift) / grid_w
         box_y = (y + y_shift) / grid_h
         box_w = F.exp(w) * w_anchor / grid_w

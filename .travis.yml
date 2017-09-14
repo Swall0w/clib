@@ -35,10 +35,12 @@ script:
   - pip install autopep8
   - pip install mock
   - pip install pytest
+  - pip install pytest-cov
 #  - pip install codeclimate-test-reporter
   - make test
-  - coverage run --source ./ -m py.test
-  - coverage report
+#  - coverage run --source ./ -m py.test
+  - py.test --cov=./clib --cov-config .coveragerc
+#  - coverage report
 
 after_success:
   # - CODECLIMATE_REPO_TOKEN=2f7f6297e9651d9a770ef1fd85bc2af4d48ea1dd3c781b6214b0712089fa702f codeclimate-test-reporter

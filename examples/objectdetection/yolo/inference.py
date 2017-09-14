@@ -47,13 +47,11 @@ class YoloInference(ImageInference):
     def __call__(self, orig_img):
         orig_input_height, orig_input_width, _ = orig_img.shape
         img = resize_to_yolo(orig_img)
-        input_height, input_width, _ = img.shape
         img = np.asarray(img, dtype=np.float32) / 255.0
         img = img.transpose(2, 0, 1)
 
         x_data = img[np.newaxis, :, :, :]
-        x = Variable(x_data)
-        x, y, w, h, conf, prob = self.model.predict(x)
+        x, y, w, h, conf, prob = self.model.predict(Variable(x_data))
 
         _, _, _, grid_h, grid_w = x.shape
         x = F.reshape(x, (self.n_boxes, grid_h, grid_w)).data
@@ -61,8 +59,8 @@ class YoloInference(ImageInference):
         w = F.reshape(w, (self.n_boxes, grid_h, grid_w)).data
         h = F.reshape(h, (self.n_boxes, grid_h, grid_w)).data
         conf = F.reshape(conf, (self.n_boxes, grid_h, grid_w)).data
-        prob = F.transpose(F.reshape(
-            prob, (self.n_boxes, self.n_classes, grid_h, grid_w)),
+        prob = F.transpose(
+            F.reshape(prob, (self.n_boxes, self.n_classes, grid_h, grid_w)),
             (1, 0, 2, 3)).data
         detected_indices = (conf * prob).max(axis=0) > self.detection_thresh
 
@@ -71,7 +69,6 @@ class YoloInference(ImageInference):
             results.append({
                 "label": self.get_classname(prob.transpose(1, 2, 3, 0)[
                     detected_indices][i].argmax()),
-
                 "probs": prob.transpose(1, 2, 3, 0)[detected_indices][i],
                 "conf": conf[detected_indices][i],
                 "objectness": conf[detected_indices][i] * prob.transpose(
@@ -85,7 +82,16 @@ class YoloInference(ImageInference):
             })
 
         nms_results = nms(results, self.iou_thresh)
-        return nms_results
+        outputs = []
+        for result in nms_results:
+            op = {}
+            op['left'], op['top'] = result["box"].int_left_top()
+            op['right'], op['bottom'] = result["box"].int_right_bottom()
+            op['class'] = result['label']
+            op['prob'] = result['probs'].max() * result['conf'] * 100
+            outputs.append(op)
+
+        return outputs
 
 
 if __name__ == "__main__":
@@ -101,17 +107,7 @@ if __name__ == "__main__":
 
     print("loading image...")
     img = yolo_inference.load_image(args.input)
-    nms_results = yolo_inference(img)
-
-    outputs = []
-    for result in nms_results:
-        output = {}
-        output['left'], output['top'] = result["box"].int_left_top()
-        output['right'], output['bottom'] = result["box"].int_right_bottom()
-        output['class'] = result['label']
-        output['prob'] = result['probs'].max() * result['conf'] * 100
-        outputs.append(output)
-
+    outputs = yolo_inference(img)
     orig_img = Image.open(args.input)
     output_img = viz_bbox(orig_img, outputs)
     output_img.save(args.output)
