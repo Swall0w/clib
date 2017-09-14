@@ -3,13 +3,7 @@ import os
 import numpy
 import six
 from chainer.dataset import dataset_mixin
-
-try:
-    from PIL import Image
-    available = True
-except ImportError as e:
-    available = False
-    _import_error = e
+from PIL import Image
 
 
 def to_rgb(image, dtype):
@@ -40,7 +34,6 @@ class UnifiedLabeledImageDataset(dataset_mixin.DatasetMixin):
 
     def __init__(self, pairs, dtype=numpy.float32,
                  label_dtype=numpy.int32, resize=None):
-        _check_pillow_availability()
         if isinstance(pairs, six.string_types):
             pairs_path = pairs
             with open(pairs_path) as pairs_file:
@@ -69,10 +62,3 @@ class UnifiedLabeledImageDataset(dataset_mixin.DatasetMixin):
             image = image[:, :, numpy.newaxis]
         label = numpy.array(int_label, dtype=self._label_dtype)
         return image.transpose(2, 0, 1), label
-
-
-def _check_pillow_availability():
-    if not available:
-        raise ImportError('PIL cannot be loaded. Install Pillow!\n'
-                          'The actual import error is as follows:\n' +
-                          str(_import_error))
