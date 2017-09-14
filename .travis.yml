@@ -37,7 +37,8 @@ script:
   - pip install pytest
 #  - pip install codeclimate-test-reporter
   - make test
-  - coverage run --source ./ -m py.test
+#  - coverage run --source ./ -m py.test
+  - py.test --cov=./clib --cov-config .coveragerc
   - coverage report
 
 after_success:
