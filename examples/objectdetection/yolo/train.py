@@ -42,7 +42,7 @@ def arg():
                         help='Directory name that contains images')
     parser.add_argument('--labels', default='labels/',
                         help='Directory name that contains labels')
-    parser.add_argument('--tags', default='voc.names',
+    parser.add_argument('--tags', default='data/voc.names',
                         help='label list')
     return parser.parse_args()
 
