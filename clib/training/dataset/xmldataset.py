@@ -8,6 +8,7 @@ from clib.datasets import ImageAugmentation, voc_load
 from clib.transforms import jitter_position
 from clib.utils import randombool
 from clib.utils.regrex import is_path
+from clib.utils import get_index_from_label
 from skimage.color import gray2rgb
 from .basedataset import BaseLabeledImageDataset
 
@@ -39,6 +40,8 @@ class XMLLabeledImageDataset(BaseLabeledImageDataset):
         if img.ndim == 2:
             img = gray2rgb(img)
         img = img.astype(self._dtype)
-        label_dict = self.label_dict[bndbox['label']]
+#        label_dict = self.label_dict[bndbox['label']]
+        label_dict = get_index_from_label(self.label_dict, bndbox['label'])
+#        label_dict = self.label_dict[bndbox['label']]
         label = numpy.array(label_dict, dtype=self._label_dtype)
         return img.transpose(2, 0, 1), label
