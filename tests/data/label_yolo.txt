@@ -1,0 +1,1 @@
+./tests/data/0.jpg ./tests/data/1.txt
