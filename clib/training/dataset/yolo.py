@@ -21,33 +21,33 @@ class YoloPreprocessedDataset(BaseLabeledImageDataset):
         crop_size = (resize, resize)
         full_path, label = self._pairs[i]
         image = io.imread(full_path)
-        labels = self.label_reader(label)
+        labels = label_reader(label, self.label_dict)
         image = imresize(image, crop_size, mode='reflect')
         image = skimage.img_as_float(image)
         return image.transpose(2, 0, 1), labels
 
-    def convert2tuple(self, line):
-        line = line.strip().split()
-        line[0] = int(line[0])
-        line[1] = float(line[1])
-        line[2] = float(line[2])
-        line[3] = float(line[3])
-        line[4] = float(line[4])
-        return tuple(line)
+def convert2tuple(line):
+    line = line.strip().split()
+    line[0] = int(line[0])
+    line[1] = float(line[1])
+    line[2] = float(line[2])
+    line[3] = float(line[3])
+    line[4] = float(line[4])
+    return tuple(line)
 
-    def label_reader(self, labelfile):
-        with open(labelfile, 'r') as f:
-            lines = [self.convert2tuple(line) for line in f.readlines()]
-        ground_truths = []
-        for item in lines:
-            one_hot_label = np.zeros(len(self.label_dict))
-            one_hot_label[item[0]] = 1
-            ground_truths.append({
-                'x': item[1],
-                'y': item[2],
-                'w': item[3],
-                'h': item[4],
-                'label': item[0],
-                'one_hot_label': one_hot_label
-            })
-        return ground_truths
+def label_reader(labelfile, label_dict):
+    with open(labelfile, 'r') as f:
+        lines = [convert2tuple(line) for line in f.readlines()]
+    ground_truths = []
+    for item in lines:
+        one_hot_label = np.zeros(len(label_dict))
+        one_hot_label[item[0]] = 1
+        ground_truths.append({
+            'x': item[1],
+            'y': item[2],
+            'w': item[3],
+            'h': item[4],
+            'label': item[0],
+            'one_hot_label': one_hot_label
+        })
+    return ground_truths
