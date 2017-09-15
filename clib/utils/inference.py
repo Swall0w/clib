@@ -21,14 +21,9 @@ class ImageInference(object):
         img = io.imread(imagefile)
         return img
 
-    def get_classname(self, num):
-        for cls, value in self.label.items():
-            if int(value) == int(num):
-                return str(cls)
-
     def __call__(self, inputs):
         """Applies inference computation to input arrays.
-    
+
         Args:
             inputs: input arrays.
         Return:
