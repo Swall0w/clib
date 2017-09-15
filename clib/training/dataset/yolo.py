@@ -1,4 +1,3 @@
-# import chainer
 import glob
 import os
 import random
@@ -14,8 +13,7 @@ from .basedataset import BaseLabeledImageDataset
 class YoloPreprocessedDataset(BaseLabeledImageDataset):
     def get_example(self, i):
         if isinstance(self.resize, int):
-            resize = [resize]
-            self.crop_size = resize
+            self.crop_size = [self.resize]
         else:
             self.crop_size = self.resize
 
