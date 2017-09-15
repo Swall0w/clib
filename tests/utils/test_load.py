@@ -1,11 +1,12 @@
 import unittest
 
-from clib.utils import load_class
+from clib.utils import load_class, get_index_from_label
 
 
 class LoadClassTest(unittest.TestCase):
     def setUp(self):
         self.vocfilepath = 'tests/data/voc.names'
+        self.tags = {0: 'hoge', 1: 'fuga'}
 
     def test_load_class(self):
         self.assertEqual(load_class(self.vocfilepath),
@@ -16,3 +17,6 @@ class LoadClassTest(unittest.TestCase):
                           13: 'motorbike', 14: 'person',
                           15: 'pottedplant', 16: 'sheep', 17: 'sofa',
                           18: 'train', 19: 'tvmonitor'})
+
+    def test_get_index(self):
+        self.assertEqual(get_index_from_label(self.tags, 'fuga'), 1),
