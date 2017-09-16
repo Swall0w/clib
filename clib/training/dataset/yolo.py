@@ -1,5 +1,5 @@
 import glob
-import os
+import os.path
 import random
 
 import chainer
@@ -8,6 +8,8 @@ import skimage
 from skimage import io
 from skimage.transform import resize as imresize
 from .basedataset import BaseLabeledImageDataset
+from clib.datasets import voc_load
+from clib.utils import get_index_from_label
 
 
 class YoloPreprocessedDataset(BaseLabeledImageDataset):
@@ -36,8 +38,16 @@ def convert2tuple(line):
     return tuple(line)
 
 def label_reader(labelfile, label_dict):
-    with open(labelfile, 'r') as f:
-        lines = [convert2tuple(line) for line in f.readlines()]
+    root, ext = os.path.splitext(labelfile)
+    if ext == '.txt':
+        with open(labelfile, 'r') as f:
+            lines = [convert2tuple(line) for line in f.readlines()]
+    elif ext == '.xml':
+        size, label = voc_load(labelfile)
+        lines = xml_to_yolo(size, label, label_dict)
+    else:
+        pass
+
     ground_truths = []
     for item in lines:
         one_hot_label = np.zeros(len(label_dict))
@@ -51,3 +61,29 @@ def label_reader(labelfile, label_dict):
             'one_hot_label': one_hot_label
         })
     return ground_truths
+
+def xml_to_yolo(size, label, label_dict):
+    rets = []
+    for item in label:
+        ret = []
+        b = (float(item['xmin']), float(item['ymin']),
+             float(item['xmax']), float(item['ymax']))
+        bb = convert_coordinate_to_relative(size, b)
+        ret.append(get_index_from_label(label_dict, item['label']))
+        ret.extend(list(bb))
+        rets.append(tuple(ret))
+    return rets
+
+def convert_coordinate_to_relative(size, box):
+    dw = 1./(size[0])
+    dh = 1./(size[1])
+    x = (box[0] + box[1])/2.0 - 1
+    y = (box[2] + box[3])/2.0 - 1
+    w = box[1] - box[0]
+    h = box[3] - box[2]
+    x = x*dw
+    w = w*dw
+    y = y*dh
+    h = h*dh
+    return (x, y, w, h)
+
