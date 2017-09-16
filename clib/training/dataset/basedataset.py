@@ -2,6 +2,7 @@ import numpy
 import six
 from chainer.dataset import dataset_mixin
 from clib.utils.regrex import is_path
+from clib.utils import load_class
 
 
 class BaseLabeledImageDataset(dataset_mixin.DatasetMixin):
@@ -30,6 +31,8 @@ class BaseLabeledImageDataset(dataset_mixin.DatasetMixin):
         self.resize = resize
         self.random_step = random_step
         self.label_dict = label_dict
+        if self.label_dict:
+            self.label_dict = load_class(self.label_dict)
         self.is_image_aug = is_image_aug
 
     def __len__(self):

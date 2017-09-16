@@ -10,6 +10,10 @@ from clib.training.updater import yolo_converter
 
 def arg():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--train',
+                        help='Path to train image-label list file')
+    parser.add_argument('--test',
+                        help='Path to test image-label list file')
     parser.add_argument('--batch', '-b', type=int, default=100,
                         help='number of minibatch')
     parser.add_argument('--epoch', '-e', type=int, default=100,
@@ -38,7 +42,7 @@ def arg():
                         help='Directory name that contains images')
     parser.add_argument('--labels', default='labels/',
                         help='Directory name that contains labels')
-    parser.add_argument('--tags', default='voc.names',
+    parser.add_argument('--tags', default='data/voc.names',
                         help='label list')
     return parser.parse_args()
 
@@ -63,8 +67,8 @@ def main():
     optimizer.setup(model)
     optimizer.add_hook(chainer.optimizer.WeightDecay(args.weight_decay))
 
-    train = YoloPreprocessedDataset(
-        dirs=(args.images, args.labels), resize=resize, tags=args.tags)
+    train = YoloPreprocessedDataset(pairs=args.train, resize=resize,
+                                    label_dict=args.tags)
     train_itr = chainer.iterators.SerialIterator(
         dataset=train, batch_size=args.batch)
     updater = training.StandardUpdater(
