@@ -71,12 +71,13 @@ def xml_to_yolo(size, label, label_dict):
         bb = convert_coordinate_to_relative(size, b)
         ret.append(get_index_from_label(label_dict, item['label']))
         ret.extend(list(bb))
+        print(ret)
         rets.append(tuple(ret))
     return rets
 
 def convert_coordinate_to_relative(size, box):
-    dw = 1./(size[0])
-    dh = 1./(size[1])
+    dw = 1./(size[1])
+    dh = 1./(size[0])
     x = (box[0] + box[1])/2.0 - 1
     y = (box[2] + box[3])/2.0 - 1
     w = box[1] - box[0]
