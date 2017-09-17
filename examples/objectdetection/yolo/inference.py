@@ -67,8 +67,8 @@ class YoloInference(ImageInference):
         results = []
         for i in range(detected_indices.sum()):
             results.append({
-                "label": self.get_classname(prob.transpose(1, 2, 3, 0)[
-                    detected_indices][i].argmax()),
+                "label": self.label[prob.transpose(1, 2, 3, 0)[
+                    detected_indices][i].argmax()],
                 "probs": prob.transpose(1, 2, 3, 0)[detected_indices][i],
                 "conf": conf[detected_indices][i],
                 "objectness": conf[detected_indices][i] * prob.transpose(
@@ -108,6 +108,7 @@ if __name__ == "__main__":
     print("loading image...")
     img = yolo_inference.load_image(args.input)
     outputs = yolo_inference(img)
+    print(outputs)
     orig_img = Image.open(args.input)
     output_img = viz_bbox(orig_img, outputs)
     output_img.save(args.output)
