@@ -76,7 +76,7 @@ def main():
     trainer = training.Trainer(updater, (args.epoch, 'epoch'), out=args.output)
 
     trainer.extend(
-        extensions.ExponentialShift('lr', 0.97), trigger=(1, 'epoch'))
+        extensions.ExponentialShift('lr', 0.99), trigger=(10, 'epoch'))
     trainer.extend(extensions.observe_lr())
 
     trainer.extend(extensions.dump_graph('main/loss'))
