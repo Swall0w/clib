@@ -1,4 +1,5 @@
 from clib.utils.bbox import Box
+from clib.utils.evaluation import bb_intersection_over_union
 from clib.utils.nms import nms
 from clib.utils.overlap import (
                             multi_box_iou,
