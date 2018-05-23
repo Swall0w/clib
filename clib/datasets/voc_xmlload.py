@@ -28,6 +28,6 @@ def xml_parse(f):
 
 
 def voc_load(file_path):
-    with open(file_path) as f:
+    with open(file_path, encoding='utf-8') as f:
         ret = xml_parse(f)
     return ret
