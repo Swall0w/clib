@@ -13,23 +13,23 @@ class VGGNet(chainer.Chain):
     def __init__(self, n_class=1000):
         super(VGGNet, self).__init__()
         with self.init_scope():
-            conv1_1 = L.Convolution2D(3, 64, 3, stride=1, pad=1)
-            conv1_2 = L.Convolution2D(64, 64, 3, stride=1, pad=1)
-            conv2_1 = L.Convolution2D(64, 128, 3, stride=1, pad=1)
-            conv2_2 = L.Convolution2D(128, 128, 3, stride=1, pad=1)
-            conv3_1 = L.Convolution2D(128, 256, 3, stride=1, pad=1)
-            conv3_2 = L.Convolution2D(256, 256, 3, stride=1, pad=1)
-            conv3_3 = L.Convolution2D(256, 256, 3, stride=1, pad=1)
-            conv4_1 = L.Convolution2D(256, 512, 3, stride=1, pad=1)
-            conv4_2 = L.Convolution2D(512, 512, 3, stride=1, pad=1)
-            conv4_3 = L.Convolution2D(512, 512, 3, stride=1, pad=1)
-            conv5_1 = L.Convolution2D(512, 512, 3, stride=1, pad=1)
-            conv5_2 = L.Convolution2D(512, 512, 3, stride=1, pad=1)
-            conv5_3 = L.Convolution2D(512, 512, 3, stride=1, pad=1)
+            self.conv1_1 = L.Convolution2D(3, 64, 3, stride=1, pad=1)
+            self.conv1_2 = L.Convolution2D(64, 64, 3, stride=1, pad=1)
+            self.conv2_1 = L.Convolution2D(64, 128, 3, stride=1, pad=1)
+            self.conv2_2 = L.Convolution2D(128, 128, 3, stride=1, pad=1)
+            self.conv3_1 = L.Convolution2D(128, 256, 3, stride=1, pad=1)
+            self.conv3_2 = L.Convolution2D(256, 256, 3, stride=1, pad=1)
+            self.conv3_3 = L.Convolution2D(256, 256, 3, stride=1, pad=1)
+            self.conv4_1 = L.Convolution2D(256, 512, 3, stride=1, pad=1)
+            self.conv4_2 = L.Convolution2D(512, 512, 3, stride=1, pad=1)
+            self.conv4_3 = L.Convolution2D(512, 512, 3, stride=1, pad=1)
+            self.conv5_1 = L.Convolution2D(512, 512, 3, stride=1, pad=1)
+            self.conv5_2 = L.Convolution2D(512, 512, 3, stride=1, pad=1)
+            self.conv5_3 = L.Convolution2D(512, 512, 3, stride=1, pad=1)
 
-            fc6 = L.Linear(None, 4096),
-            fc7 = L.Linear(4096, 4096),
-            fc8 = L.Linear(4096, n_class)
+            self.fc6 = L.Linear(None, 4096)
+            self.fc7 = L.Linear(4096, 4096)
+            self.fc8 = L.Linear(4096, n_class)
 
     def __call__(self, x):
         h = F.relu(self.conv1_1(x))

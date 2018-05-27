@@ -11,3 +11,4 @@ from clib.links.model.recognition.densenet import (DenseBlock,
 from clib.links.model.recognition.squeezenet import Fire, SqueezeNet
 from clib.links.model.recognition.res import (BottleNeckA, BottleNeckB,
                                               ResNet50, ResNet101, ResNet152)
+from clib.links.model.recognition.vggnet import VGGNet
